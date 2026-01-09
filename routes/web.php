@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\TempImagesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\IsAdmin;
@@ -40,6 +41,14 @@ Route::prefix('admin')->middleware(['auth', IsAdmin::class])->group(function () 
     Route::get('/categorie/{category}/edit', [CategoryController::class, 'edit'])->name('admin.categorie.edit');
     Route::put('/categorie/{category}', [CategoryController::class, 'updated'])->name('admin.categorie.updated');
     Route::delete('/categorie/{category}', [CategoryController::class, 'destroy'])->name('admin.categorie.destroy');
+
+    // Catégories
+    Route::get('/sous-categories', [SubCategoryController::class, 'subCategorie'])->name('admin.subCategorie');
+    Route::get('/sous-categories/create', [SubCategoryController::class, 'create'])->name('admin.subCategorie.create');
+    Route::post('/sous-categories/store', [SubCategoryController::class, 'store'])->name('admin.subCategorie.store');
+    //Route::get('/sous-categories/{subcategory}/edit', [SubCategoryController::class, 'edit'])->name('admin.subCategorie.edit');
+    //Route::put('/sous-categories/{subcategory}', [SubCategoryController::class, 'updated'])->name('admin.subCategorie.updated');
+    //Route::delete('/sous-categories/{subcategory}', [SubCategoryController::class, 'destroy'])->name('admin.subCategorie.destroy');
 
     // IMAGES
     //Route::post('/product-images/update', [ProductImageController::class, 'update'])->name('product-images.update');

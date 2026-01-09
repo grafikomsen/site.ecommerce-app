@@ -22,7 +22,7 @@ class CategoryController extends Controller
 
         $categories = $categories->paginate(5);
         Session::put('page','categorie');
-        return view('admin.categories.service', compact('categories'));
+        return view('admin.categories.categorie', compact('categories'));
     }
 
     public function create(){

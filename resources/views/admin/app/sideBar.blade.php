@@ -64,7 +64,20 @@
                     </div>
                 </li>
 
-                
+                <li>
+                    <a href="#sidebarAuth" data-bs-toggle="collapse">
+                        <i data-feather="users"></i>
+                        <span> Sous Catégorie </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebarAuth">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a href="{{ route('admin.subCategorie') }}" class="tp-link" {{ (Session::get('page') == 'subCategorie') ? 'active' : '' }}>Sous catégorie</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
 
                 <li class="menu-title mt-2">General</li>
 
