@@ -37,6 +37,9 @@ Route::prefix('admin')->middleware(['auth', IsAdmin::class])->group(function () 
     Route::get('/categories', [CategoryController::class, 'categorie'])->name('admin.categorie');
     Route::get('/categories/create', [CategoryController::class, 'create'])->name('admin.categorie.create');
     Route::post('/categories/store', [CategoryController::class, 'store'])->name('admin.categorie.store');
+    Route::get('/categorie/{category}/edit', [CategoryController::class, 'edit'])->name('admin.categorie.edit');
+    Route::put('/categorie/{category}', [CategoryController::class, 'updated'])->name('admin.categorie.updated');
+    Route::delete('/categorie/{category}', [CategoryController::class, 'destroy'])->name('admin.categorie.destroy');
 
     // IMAGES
     //Route::post('/product-images/update', [ProductImageController::class, 'update'])->name('product-images.update');

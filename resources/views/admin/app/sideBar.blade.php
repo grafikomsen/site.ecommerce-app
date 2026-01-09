@@ -25,8 +25,6 @@
 
             <ul id="side-menu">
 
-                <li class="menu-title">Menu</li>
-
                 <li>
                     <a href="#sidebarDashboards" data-bs-toggle="collapse">
                         <i data-feather="home"></i>
@@ -36,7 +34,7 @@
                     <div class="collapse" id="sidebarDashboards">
                         <ul class="nav-second-level">
                             <li>
-                                <a href="{{ route('admin.dashboard') }}" class="tp-link">Dashboard</a>
+                                <a href="{{ route('admin.dashboard') }}" class="tp-link" {{ (Session::get('page') == 'dashboard') ? 'active' : '' }}>Dashboard</a>
                             </li>
                         </ul>
                     </div>
@@ -54,90 +52,19 @@
                 <li>
                     <a href="#sidebarAuth" data-bs-toggle="collapse">
                         <i data-feather="users"></i>
-                        <span> catégorie </span>
+                        <span> Catégorie </span>
                         <span class="menu-arrow"></span>
                     </a>
                     <div class="collapse" id="sidebarAuth">
                         <ul class="nav-second-level">
                             <li>
-                                <a href="{{ route('admin.categorie') }}" class="tp-link">catégorie</a>
+                                <a href="{{ route('admin.categorie') }}" class="tp-link" {{ (Session::get('page') == 'categorie') ? 'active' : '' }}>Catégorie</a>
                             </li>
                         </ul>
                     </div>
                 </li>
 
-                <li>
-                    <a href="#sidebarError" data-bs-toggle="collapse">
-                        <i data-feather="alert-octagon"></i>
-                        <span> Error Pages </span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <div class="collapse" id="sidebarError">
-                        <ul class="nav-second-level">
-                            <li>
-                                <a href="error-404.html" class="tp-link">Error 404</a>
-                            </li>
-                            <li>
-                                <a href="error-500.html" class="tp-link">Error 500</a>
-                            </li>
-                            <li>
-                                <a href="error-503.html" class="tp-link">Error 503</a>
-                            </li>
-                            <li>
-                                <a href="error-429.html" class="tp-link">Error 429</a>
-                            </li>
-                            <li>
-                                <a href="offline-page.html" class="tp-link">Offline Page</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
-                <li>
-                    <a href="#sidebarExpages" data-bs-toggle="collapse">
-                        <i data-feather="file-text"></i>
-                        <span> Utility </span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <div class="collapse" id="sidebarExpages">
-                        <ul class="nav-second-level">
-                            <li>
-                                <a href="pages-starter.html" class="tp-link">Starter</a>
-                            </li>
-                            <li>
-                                <a href="pages-profile.html" class="tp-link">Profile</a>
-                            </li>
-                            <li>
-                                <a href="pages-pricing.html" class="tp-link">Pricing</a>
-                            </li>
-                            <li>
-                                <a href="pages-timeline.html" class="tp-link">Timeline</a>
-                            </li>
-                            <li>
-                                <a href="pages-invoice.html" class="tp-link">Invoice</a>
-                            </li>
-                            <li>
-                                <a href="pages-faqs.html" class="tp-link">FAQs</a>
-                            </li>
-                            <li>
-                                <a href="pages-gallery.html" class="tp-link">Gallery</a>
-                            </li>
-                            <li>
-                                <a href="pages-maintenance.html" class="tp-link">Maintenance</a>
-                            </li>
-                            <li>
-                                <a href="pages-coming-soon.html" class="tp-link">Coming Soon</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
-                <li>
-                    <a href="calendar.html" class="tp-link">
-                        <i data-feather="calendar"></i>
-                        <span> Calendar </span>
-                    </a>
-                </li>
+                
 
                 <li class="menu-title mt-2">General</li>
 

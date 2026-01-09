@@ -8,13 +8,13 @@
 
             <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
                 <div class="flex-grow-1">
-                    <h4 class="m-0 fs-18 fw-semibold">category</h4>
+                    <h4 class="m-0 fs-18 fw-semibold">Category</h4>
                 </div>
 
                 <div class="text-end">
                     <ol class="py-0 m-0 breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">dashboard</a></li>
-                        <li class="breadcrumb-item active">category</li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Category</li>
                     </ol>
                 </div>
             </div>
@@ -29,7 +29,7 @@
                     <div class="card">
 
                         <div class="card-header">
-                            <h5 class="mb-3 card-title">category</h5>
+                            <h5 class="mb-3 card-title">Category</h5>
                             <a href="{{ route('admin.categorie.create') }}" class="btn btn-primary float-end">Ajoutez une catégorie</a>
                             <form action="" method="GET">
                                 <div class="input-group input-group" style="width: 250px;">
@@ -72,8 +72,8 @@
                                                 </td>
                                                 <td>{{ $category->created_at }}</td>
                                                 <td>
-                                                    <a class="btn btn-info btn-sm" href="">e</a>
-                                                    <a class="btn btn-danger btn-sm" href="">s</a>
+                                                    <a class="btn btn-info btn-sm" href="{{ route('admin.categorie.edit',$category->id) }}">e</a>
+                                                    <a class="btn btn-danger btn-sm" onclick="deleteCategory({{ $category->id }})">s</a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -86,4 +86,31 @@
             </div>
         </div>
     </div>
+@endsection
+@section('backendJs')
+    <script>
+        function deleteCategory(id){
+
+            let url = '{{ route("admin.categorie.destroy","ID") }}';
+            let newUrl = url.replace('ID',id);
+
+            if (confirm('Etes-vous sûr de vouloir supprimer')) {
+                $.ajax({
+                    url: newUrl,
+                    type: 'DELETE',
+                    data: {},
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function (response) {
+                        $("button[type=submit]").prop('desabled', false);
+                        if (response['status']) {
+                            window.location.href="{{ route('admin.categorie') }}";
+                        }
+                    }
+                })
+            }
+        }
+    </script>
 @endsection
