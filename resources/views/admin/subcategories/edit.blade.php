@@ -2,14 +2,14 @@
 @section('content')
     <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
         <div class="flex-grow-1">
-            <h4 class="m-0 fs-18 fw-semibold">Modification de la catégorie</h4>
+            <h4 class="m-0 fs-18 fw-semibold">Modification de la sous catégorie</h4>
         </div>
 
         <div class="text-end">
             <ol class="py-0 m-0 breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('admin.categorie') }}">Catégorie</a></li>
-                <li class="breadcrumb-item active">Modification de la catégorie</li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.subCategorie') }}">Sous catégorie</a></li>
+                <li class="breadcrumb-item active">Modification de la sous catégorie</li>
             </ol>
         </div>
     </div>
@@ -24,21 +24,33 @@
                             <h5 class="mb-0 card-title">Browser Defaults</h5>
                         </div>
                         <div class="col-md-6">
-                            <a class="btn btn-danger btn-sm float-end" href="{{ route('admin.categorie') }}">Retour</a>
+                            <a class="btn btn-danger btn-sm float-end" href="{{ route('admin.subCategorie') }}">Retour</a>
                         </div>
                     </div>
                 </div><!-- end card header -->
 
                 <div class="card-body">
-                    <form name="editCategoryForm" id="editCategoryForm" class="row g-3">
+                    <form name="editSubCategory" id="editSubCategory" class="row g-3">
                         <div class="col-md-6">
-                            <label for="name" class="form-label">Category</label>
-                            <input type="text" class="form-control" id="name" name="name" value="{{ $category->name }}" placeholder="Nom de la catégorie">
+                            <label for="name" class="form-label">Sous category</label>
+                            <input type="text" class="form-control" id="name" name="name" value="{{ $subCategory->name }}" placeholder="Nom de la catégorie">
                             <p></p>
                         </div>
                         <div class="col-md-6">
                             <label for="slug" class="form-label">Slug</label>
-                            <input type="text" class="form-control" id="slug" name="slug" value="{{ $category->slug }}" placeholder="Lien de la catégorie">
+                            <input type="text" class="form-control" id="slug" name="slug" value="{{ $subCategory->slug }}" placeholder="Lien de la catégorie">
+                            <p></p>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="category" class="form-label">Category</label>
+                            <select class="form-select" id="category" name="category">
+                                <option selected disabled value="">-- Selectionnez --</option>
+                                @if ($categories->isNotEmpty())
+                                    @foreach ($categories as $category)
+                                        <option {{ ($subCategory->category_id == $category->id) ? 'selected' : '' }} value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endforeach
+                                @endif
+                            </select>
                             <p></p>
                         </div>
                         <div class="col-md-12">
@@ -50,9 +62,9 @@
                                             <br>Drop files here or click to upload.<br><br>
                                         </div>
                                     </div>
-                                    @if (!empty($category->image))
+                                    @if (!empty($subCategory->image))
                                         <div>
-                                            <img src="{{ asset('uploads/categories/'.$category->image) }}" class=" border-2 shadow-md p-2" width="100" height="100" alt="$category->name">
+                                            <img src="{{ asset('uploads/sub-categories/'.$subCategory->image) }}" class="border-2 shadow-md p-2" width="100" height="100" alt="$subCategory->name">
                                         </div>
                                     @endif
                                 </div>
@@ -60,15 +72,15 @@
                         <div class="col-md-6">
                             <label for="showHome" class="form-label">Affichage</label>
                             <select class="form-select" id="showHome" name="showHome">
-                                <option {{ ($category->showHome == 'Oui') ? 'selected' : '' }} value="Oui">Oui</option>
-                                <option {{ ($category->showHome == 'Non') ? 'selected' : '' }} value="Non">Non</option>
+                                <option {{ ($subCategory->showHome == 'Yes') ? 'selected' : '' }} value="Yes">Oui</option>
+                                <option {{ ($subCategory->showHome == 'No') ? 'selected' : '' }} value="No">Non</option>
                             </select>
                         </div>
                         <div class="col-md-6">
                             <label for="status" class="form-label">Statut</label>
                             <select class="form-select" id="status" name="status">
-                                <option {{ ($category->status == 1) ? 'selected' : '' }} value="1">Activé</option>
-                                <option {{ ($category->status == 0) ? 'selected' : '' }} value="0">Désactivé</option>
+                                <option {{ ($subCategory->status == 1) ? 'selected' : '' }} value="1">Activé</option>
+                                <option {{ ($subCategory->status == 0) ? 'selected' : '' }} value="0">Désactivé</option>
                             </select>
                         </div>
                         <div class="col-12">
@@ -80,16 +92,17 @@
         </div> <!-- end col -->
     </div>
 @endsection
+
 @section('backendJs')
     <script>
 
-        $('#editCategoryForm').submit(function(e) {
+        $('#editSubCategory').submit(function(e) {
             e.preventDefault();
             let element = $(this);
             $("button[type=submit]").prop('desabled', true);
 
             $.ajax({
-                url: '{{ route("admin.categorie.updated",$category->id) }}',
+                url: '{{ route("admin.subCategorie.updated",$subCategory->id) }}',
                 type: 'PUT',
                 data: element.serializeArray(),
                 dataType: 'json',
@@ -98,7 +111,7 @@
 
                     if(response['status'] == true){
 
-                        window.location.href="{{ route('admin.categorie') }}";
+                        window.location.href="{{ route('admin.subCategorie') }}";
 
                         $('#name')
                             .removeClass('is-invalid')
@@ -111,6 +124,10 @@
                             .siblings('p')
                             .removeClass('invalid-feedback')
                             .html('');
+
+                        $('#category').removeClass('is-invalid')
+                            .siblings('p')
+                            .removeClass('invalid-feedback').html('');
 
                     } else {
 

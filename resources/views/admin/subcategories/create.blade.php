@@ -67,7 +67,6 @@
                         <div class="col-md-6">
                             <label for="showHome" class="form-label">Affichage</label>
                             <select class="form-select" id="showHome" name="showHome">
-                                <option selected disabled value="">-- Selectionnez --</option>
                                 <option value="Yes">Oui</option>
                                 <option value="No">Non</option>
                             </select>
@@ -75,7 +74,6 @@
                         <div class="col-md-6">
                             <label for="status" class="form-label">Statut</label>
                             <select class="form-select" id="status" name="status">
-                                <option selected disabled value="">-- Selectionnez --</option>
                                 <option value="1">Activé</option>
                                 <option value="0">desactivé</option>
                             </select>

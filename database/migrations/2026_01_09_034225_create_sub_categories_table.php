@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->string('name');
             $table->string('slug');
+            $table->string('image')->nullable();
             $table->enum('showHome',['Yes','No'])->default('No');
             $table->integer('status')->default(1);
             $table->timestamps();

@@ -46,9 +46,9 @@ Route::prefix('admin')->middleware(['auth', IsAdmin::class])->group(function () 
     Route::get('/sous-categories', [SubCategoryController::class, 'subCategorie'])->name('admin.subCategorie');
     Route::get('/sous-categories/create', [SubCategoryController::class, 'create'])->name('admin.subCategorie.create');
     Route::post('/sous-categories/store', [SubCategoryController::class, 'store'])->name('admin.subCategorie.store');
-    //Route::get('/sous-categories/{subcategory}/edit', [SubCategoryController::class, 'edit'])->name('admin.subCategorie.edit');
-    //Route::put('/sous-categories/{subcategory}', [SubCategoryController::class, 'updated'])->name('admin.subCategorie.updated');
-    //Route::delete('/sous-categories/{subcategory}', [SubCategoryController::class, 'destroy'])->name('admin.subCategorie.destroy');
+    Route::get('/sous-categories/{subcategory}/edit', [SubCategoryController::class, 'edit'])->name('admin.subCategorie.edit');
+    Route::put('/sous-categories/{subcategory}', [SubCategoryController::class, 'updated'])->name('admin.subCategorie.updated');
+    Route::delete('/sous-categories/{subcategory}', [SubCategoryController::class, 'destroy'])->name('admin.subCategorie.destroy');
 
     // IMAGES
     //Route::post('/product-images/update', [ProductImageController::class, 'update'])->name('product-images.update');

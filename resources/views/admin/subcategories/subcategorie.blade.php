@@ -72,8 +72,8 @@
                                                 </td>
                                                 <td>{{ $subCategory->created_at }}</td>
                                                 <td>
-                                                    <a class="btn btn-info btn-sm" href="">e</a>
-                                                    <a class="btn btn-danger btn-sm">s</a>
+                                                    <a class="btn btn-info btn-sm" href="{{ route('admin.subCategorie.edit',$subCategory->id) }}">e</a>
+                                                    <a class="btn btn-danger btn-sm" onclick="deleteSubCategory({{ $subCategory->id }})">s</a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -88,5 +88,29 @@
     </div>
 @endsection
 @section('backendJs')
+    <script>
+        function deleteSubCategory(id){
 
+            let url = '{{ route("admin.categorie.destroy","ID") }}';
+            let newUrl = url.replace('ID',id);
+
+            if (confirm('Etes-vous sûr de vouloir supprimer')) {
+                $.ajax({
+                    url: newUrl,
+                    type: 'DELETE',
+                    data: {},
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function (response) {
+                        $("button[type=submit]").prop('desabled', false);
+                        if (response['status']) {
+                            window.location.href="{{ route('admin.subCategorie') }}";
+                        }
+                    }
+                })
+            }
+        }
+    </script>
 @endsection
