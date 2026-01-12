@@ -148,10 +148,10 @@ class CategoryController extends Controller
         $category = Category::find($categoryId);
         if (empty($category)) {
             # code...
-            Session()->flash('error','Category not fount');
+            Session()->flash('error','Catégorie introuvable');
             return response()->json([
                 'status'    => true,
-                'message'   => 'Category not found'
+                'message'   => 'Catégorie introuvable'
             ]);
         }
 
@@ -160,10 +160,10 @@ class CategoryController extends Controller
 
         $category->delete();
 
-        Session()->flash('success','Category delete successfully');
+        Session()->flash('success','Suppression de la catégorie réussie');
         return response()->json([
             'status'    => true,
-            'message'   => 'Category deleted successfully'
+            'message'   => 'Suppression de la catégorie réussie'
         ]);
     }
 }

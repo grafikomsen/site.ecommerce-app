@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\TempImagesController;
@@ -49,6 +50,14 @@ Route::prefix('admin')->middleware(['auth', IsAdmin::class])->group(function () 
     Route::get('/sous-categories/{subcategory}/edit', [SubCategoryController::class, 'edit'])->name('admin.subCategorie.edit');
     Route::put('/sous-categories/{subcategory}', [SubCategoryController::class, 'updated'])->name('admin.subCategorie.updated');
     Route::delete('/sous-categories/{subcategory}', [SubCategoryController::class, 'destroy'])->name('admin.subCategorie.destroy');
+
+    // Marques
+    Route::get('/brands', [BrandController::class, 'brand'])->name('admin.brand');
+    Route::get('/brands/create', [BrandController::class, 'create'])->name('admin.brand.create');
+    Route::post('/brands/store', [BrandController::class, 'store'])->name('admin.brand.store');
+    Route::get('/brands/{brand}/edit', [BrandController::class, 'edit'])->name('admin.brand.edit');
+    Route::put('/brands/{brand}', [BrandController::class, 'updated'])->name('admin.brand.updated');
+    Route::delete('/brands/{brand}', [BrandController::class, 'destroy'])->name('admin.brand.destroy');
 
     // IMAGES
     //Route::post('/product-images/update', [ProductImageController::class, 'update'])->name('product-images.update');
