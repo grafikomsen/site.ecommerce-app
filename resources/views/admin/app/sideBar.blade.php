@@ -50,12 +50,12 @@
                 <li class="menu-title">Pages</li>
 
                 <li>
-                    <a href="#sidebarAuth" data-bs-toggle="collapse">
+                    <a href="#sidebarCategory" data-bs-toggle="collapse">
                         <i data-feather="users"></i>
                         <span> Catégorie </span>
                         <span class="menu-arrow"></span>
                     </a>
-                    <div class="collapse" id="sidebarAuth">
+                    <div class="collapse" id="sidebarCategory">
                         <ul class="nav-second-level">
                             <li>
                                 <a href="{{ route('admin.categorie') }}" class="tp-link" {{ (Session::get('page') == 'categorie') ? 'active' : '' }}>Catégorie</a>
@@ -65,12 +65,12 @@
                 </li>
 
                 <li>
-                    <a href="#sidebarAuth" data-bs-toggle="collapse">
+                    <a href="#sideSubCategory" data-bs-toggle="collapse">
                         <i data-feather="users"></i>
                         <span> Sous Catégorie </span>
                         <span class="menu-arrow"></span>
                     </a>
-                    <div class="collapse" id="sidebarAuth">
+                    <div class="collapse" id="sideSubCategory">
                         <ul class="nav-second-level">
                             <li>
                                 <a href="{{ route('admin.subCategorie') }}" class="tp-link" {{ (Session::get('page') == 'subCategorie') ? 'active' : '' }}>Sous catégorie</a>
@@ -80,12 +80,12 @@
                 </li>
 
                 <li>
-                    <a href="#sidebarAuth" data-bs-toggle="collapse">
+                    <a href="#sidebarBrand" data-bs-toggle="collapse">
                         <i data-feather="users"></i>
-                        <span> Marque </span>
+                        <span> Marques </span>
                         <span class="menu-arrow"></span>
                     </a>
-                    <div class="collapse" id="sidebarAuth">
+                    <div class="collapse" id="sidebarBrand">
                         <ul class="nav-second-level">
                             <li>
                                 <a href="{{ route('admin.brand') }}" class="tp-link" {{ (Session::get('page') == 'brand') ? 'active' : '' }}>Marque</a>
@@ -94,7 +94,22 @@
                     </div>
                 </li>
 
-                <li class="menu-title mt-2">General</li>
+                <li>
+                    <a href="#sidebarProduct" data-bs-toggle="collapse">
+                        <i data-feather="users"></i>
+                        <span> Produits </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebarProduct">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a href="{{ route('admin.product') }}" class="tp-link" {{ (Session::get('page') == 'product') ? 'active' : '' }}>Produits</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="mt-2 menu-title">General</li>
 
                 <li>
                     <a href="#sidebarBaseui" data-bs-toggle="collapse">

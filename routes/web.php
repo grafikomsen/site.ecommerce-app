@@ -3,6 +3,8 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductSubCategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\TempImagesController;
 use App\Http\Controllers\ProfileController;
@@ -58,6 +60,16 @@ Route::prefix('admin')->middleware(['auth', IsAdmin::class])->group(function () 
     Route::get('/brands/{brand}/edit', [BrandController::class, 'edit'])->name('admin.brand.edit');
     Route::put('/brands/{brand}', [BrandController::class, 'updated'])->name('admin.brand.updated');
     Route::delete('/brands/{brand}', [BrandController::class, 'destroy'])->name('admin.brand.destroy');
+
+    // Products
+    Route::get('/products', [ProductController::class, 'product'])->name('admin.product');
+    Route::get('/products/create', [ProductController::class, 'create'])->name('admin.product.create');
+    Route::post('/products/store', [ProductController::class, 'store'])->name('admin.product.store');
+    Route::get('/product/{product}/edit', [ProductController::class, 'edit'])->name('admin.product.edit');
+    Route::put('/product/{product}', [ProductController::class, 'updated'])->name('admin.product.updated');
+    Route::delete('/product/{product}', [ProductController::class, 'destroy'])->name('admin.product.destroy');
+    Route::get('/product-subcategories', [ProductSubCategoryController::class, 'index'])->name('admin.productSubCategorie');
+    Route::get('/get-products', [ProductController::class, 'getProducts'])->name('product.getProducts');
 
     // IMAGES
     //Route::post('/product-images/update', [ProductImageController::class, 'update'])->name('product-images.update');
