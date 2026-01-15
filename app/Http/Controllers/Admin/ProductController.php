@@ -18,8 +18,8 @@ class ProductController extends Controller
 {
     public function product(Request $request){
 
-        $products = Product::latest('id')->with('product_images');
-
+        //$products = Product::latest('id')->with('product_images');
+        $products = Product::latest('id');
         if ($request->get('keyword') != "") {
             # code...
             $products = $products->where('title','like','%'.$request->keyword.'%');
@@ -39,7 +39,7 @@ class ProductController extends Controller
     }
 
     public function store(Request $request){
-dd($request);
+
         $rules = [
             'title'         => 'required',
             'slug'          => 'required|unique:products',

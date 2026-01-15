@@ -36,8 +36,8 @@
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Customer</th>
-                                            <th>Items</th>
+                                            <th>Title</th>
+                                            <th>Sku</th>
                                             <th>Price</th>
                                             <th>Created</th>
                                             <th>Modified</th>
@@ -45,34 +45,47 @@
                                         </tr>
                                     </thead>
 
-                                    <tr>
-                                        <td>
-                                            <a href="javascript:void(0);" class="text-reset">#3413</a>
-                                        </td>
-                                        <td class="d-flex align-items-center">
-                                            <img src="assets/images/users/user-12.jpg" class="avatar avatar-sm rounded-2 me-3" />
-                                            <p class="mb-0 fw-medium">Richard Dom</p>
-                                        </td>
-                                        <td>
-                                            <p class="mb-0">82</p>
-                                        </td>
-                                        <td>
-                                            <p class="mb-0">$480.00</p>
-                                        </td>
-                                        <td>
-                                            <p class="mb-0">August 09, 2023</p>
-                                        </td>
-                                        <td>
-                                            <p class="mb-0">August 18, 2023</p>
-                                        </td>
-                                        <td>
-                                            <p class="mb-0 text-danger">Cancelled</p>
-                                        </td>
-                                        <td>
-                                            <a href="#"><i class="p-1 border mdi mdi-pencil text-muted fs-18 rounded-2 me-1"></i></a>
-                                            <a href="#"><i class="p-1 border mdi mdi-delete text-muted fs-18 rounded-2"></i></a>
-                                        </td>
-                                    </tr>
+
+                                    @if ($products->isNotEmpty())
+                                        @foreach ($products as $product)
+                                        <tr>
+                                            <td>
+                                                <a href="javascript:void(0);" class="text-reset">#{{ $product->id }}</a>
+                                            </td>
+                                            <td class="d-flex align-items-center">
+                                                <p class="mb-0 fw-medium">{{ $product->title }}</p>
+
+                                                    <img src="{{ asset('admin/assets/images/users/user-14.jpg') }}" class="avatar avatar-sm rounded-2 me-3" width="50" />
+
+                                            </td>
+                                            <td>
+                                                <p class="mb-0">{{ $product->sku }}</p>
+                                            </td>
+                                            <td>
+                                                <p class="mb-0">{{ number_format($product->price,0,',',' ') }} CFA</p>
+                                            </td>
+                                            <td>
+                                                <p class="mb-0">{{ $product->created_at }}</p>
+                                            </td>
+                                            <td>
+                                                <p class="mb-0">{{ $product->updated_at }}</p>
+                                            </td>
+                                            <td>
+                                                @if ($product->status == 1)
+                                                    <i class="fa fa-check-circle text-primary"></i>
+                                                    <p class="mb-0 text-success">Yes</p>
+                                                @else
+                                                    <i class="fa fa-check-circle text-danger"></i>
+                                                    <p class="mb-0 text-danger">No</p>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('admin.product.edit',$product->id) }}"><i class="p-1 border mdi mdi-pencil text-muted fs-18 rounded-2 me-1"></i></a>
+                                                <a href="#"><i class="p-1 border mdi mdi-delete text-muted fs-18 rounded-2"></i></a>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    @endif
 
                                 </table>
                             </div>

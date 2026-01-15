@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\ProductSubCategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\TempImagesController;
@@ -72,8 +73,8 @@ Route::prefix('admin')->middleware(['auth', IsAdmin::class])->group(function () 
     Route::get('/get-products', [ProductController::class, 'getProducts'])->name('product.getProducts');
 
     // IMAGES
-    //Route::post('/product-images/update', [ProductImageController::class, 'update'])->name('product-images.update');
-    //Route::delete('/product-images/delete', [ProductImageController::class, 'destroy'])->name('product-images.destroy');
+    Route::post('/product-images/update', [ProductImageController::class, 'update'])->name('product-images.update');
+    Route::delete('/product-images/delete', [ProductImageController::class, 'destroy'])->name('product-images.destroy');
     Route::post('/upload-temp-image', [TempImagesController::class, 'create'])->name('temp-images.create');
 
     // SLUG
