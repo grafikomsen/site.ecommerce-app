@@ -71,9 +71,9 @@
                                                 </div>
                                             </div>
 
-                                            <div class="card rounded-1 mb-3">
+                                            <div class="mb-3 card rounded-1">
                                                 <div class="card-body">
-                                                    <h2 class="h4 mb-3">Media</h2>
+                                                    <h2 class="mb-3 h4">Media</h2>
                                                     <div id="image" class="dropzone dz-clickable">
                                                         <div class="dz-message needsclick">
                                                             <br>Déposez les fichiers ici ou cliquez pour télécharger.<br><br>
@@ -81,7 +81,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row mb-3" id="product-gallery">
+                                            <div class="mb-3 row" id="product-gallery">
 
                                             </div>
                                             <hr>
@@ -188,10 +188,10 @@
                                         </div>
 
                                         <div class="mb-3">
-                                            <div class="card rounded-1 mb-3">
+                                            <div class="mb-3 card rounded-1">
                                                 <div class="card-body">
                                                     <div class="mb-3">
-                                                        <h2 class="h4 mb-3">Produits associés</h2>
+                                                        <h2 class="mb-3 h4">Produits associés</h2>
                                                         <select multiple class="related-product w-100" name="related_products[]" id="related_products">
 
                                                         </select>
@@ -217,6 +217,20 @@
 @endsection
 @section('backendJs')
     <script>
+         $('.related-product').select2({
+            ajax: {
+                url: '{{ route("admin.getProducts") }}',
+                dataType: 'json',
+                tags: true,
+                multiple: true,
+                minimumInputLength: 3,
+                processResults: function (data) {
+                    return {
+                        results: data.tags
+                    };
+                }
+            }
+        });
 
         $("#title").change(function() {
             element = $(this);
@@ -313,7 +327,7 @@
                         <input type="hidden" name="image_array[]" value="${response.image_id}">
                         <img src="${response.ImagePath}" class="card-img-top" alt="">
                         <div class="card-body">
-                            <a href="javascript:void(0)" onclick="deleteImage(${response.image_id})" class="btn btn-danger btn-sm rounded-1 border-0">Supprimer <i class="fa fa-trash"></i></a>
+                            <a href="javascript:void(0)" onclick="deleteImage(${response.image_id})" class="border-0 btn btn-danger btn-sm rounded-1">Supprimer <i class="fa fa-trash"></i></a>
                         </div>
                     </div>
                 </div>`;

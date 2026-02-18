@@ -73,10 +73,10 @@
                                             <td>
                                                 @if ($product->status == 1)
                                                     <i class="fa fa-check-circle text-primary"></i>
-                                                    <p class="mb-0 text-success">Yes</p>
+                                                    <p class="mb-0 text-success">Activé</p>
                                                 @else
                                                     <i class="fa fa-check-circle text-danger"></i>
-                                                    <p class="mb-0 text-danger">No</p>
+                                                    <p class="mb-0 text-danger">Désactivé</p>
                                                 @endif
                                             </td>
                                             <td>

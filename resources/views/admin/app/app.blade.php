@@ -20,6 +20,7 @@
         <link href="{{ asset('admin/assets/libs/datatables.net-keytable-bs5/css/keyTable.bootstrap5.min.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('admin/assets/libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('admin/assets/libs/datatables.net-select-bs5/css/select.bootstrap5.min.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('admin/assets/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('admin/assets/dropzone/min/dropzone.min.css') }}" rel="stylesheet" type="text/css" />
 
         <!-- App css -->
@@ -75,6 +76,9 @@
         <!-- dropzone js -->
         <script src="{{ asset('admin/assets/dropzone/min/dropzone.min.js') }}"></script>
 
+        <!-- Select2 -->
+        <script src="{{ asset('admin/assets/select2/js/select2.min.js') }}"></script>
+
         <!-- Datatables js -->
         <script src="{{ asset('admin/assets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 
@@ -89,7 +93,7 @@
         <script src="{{ asset('admin/assets/libs/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
 
         <!-- buttons.bootstrap5 -->
-        <script src="assets/libs/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js') }}"></script>
+        <script src="{{ asset('admin/assets/libs/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js') }}"></script>
 
         <!-- dataTables.keyTable -->
         <script src="{{ asset('admin/assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js') }}"></script>
@@ -110,7 +114,7 @@
         <script src="{{ asset('admin/assets/libs/apexcharts/apexcharts.min.js') }}"></script>
 
         <!-- for basic area chart -->
-        <script src="https://apexcharts.com/samples/assets/stock-prices.js') }}"></script>
+        <script src="https://apexcharts.com/samples/assets/stock-prices.js"></script>
 
         <!-- Widgets Init Js -->
         <script src="{{ asset('admin/assets/js/pages/analytics-dashboard.init.js') }}"></script>

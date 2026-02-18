@@ -70,7 +70,7 @@ Route::prefix('admin')->middleware(['auth', IsAdmin::class])->group(function () 
     Route::put('/product/{product}', [ProductController::class, 'updated'])->name('admin.product.updated');
     Route::delete('/product/{product}', [ProductController::class, 'destroy'])->name('admin.product.destroy');
     Route::get('/product-subcategories', [ProductSubCategoryController::class, 'index'])->name('admin.productSubCategorie');
-    Route::get('/get-products', [ProductController::class, 'getProducts'])->name('product.getProducts');
+    Route::get('/admin-products', [ProductController::class, 'getProducts'])->name('admin.getProducts');
 
     // IMAGES
     Route::post('/product-images/update', [ProductImageController::class, 'update'])->name('product-images.update');

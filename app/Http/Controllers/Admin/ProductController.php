@@ -50,12 +50,22 @@ class ProductController extends Controller
             'is_featured'   => 'required',
         ];
 
+        $messages = [
+            'title'         => 'Veuillez entrer le titre',
+            'slug'          => 'Veuillez entrer le slug',
+            'price'         => 'Veuillez entrer le prix',
+            'sku'           => 'Veuillez entrer le sku',
+            'track_qty'     => 'Veuillez entrer la Qty',
+            'category'      => 'Veuillez entrer la catégorie',
+            'is_featured'   => 'Veuillez entrer le produit envette',
+        ];
+
         if (!empty($request->track_qty) && $request->track_qty == 'Yes') {
             # code...
             $rules['qty'] = 'required|numeric';
         }
 
-        $Validator = Validator::make($request->all(), $rules);
+        $Validator = Validator::make($request->all(), $rules, $messages);
 
         if ($Validator->passes()) {
             # code...

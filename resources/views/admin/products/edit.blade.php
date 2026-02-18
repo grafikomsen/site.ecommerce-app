@@ -71,9 +71,9 @@
                                                 </div>
                                             </div>
 
-                                            <div class="card rounded-1 mb-3">
+                                            <div class="mb-3 card rounded-1">
                                                 <div class="card-body">
-                                                    <h2 class="h4 mb-3">Media</h2>
+                                                    <h2 class="mb-3 h4">Media</h2>
                                                     <div id="image" class="dropzone dz-clickable">
                                                         <div class="dz-message needsclick">
                                                             <br>Déposez les fichiers ici ou cliquez pour télécharger.<br><br>
@@ -81,8 +81,20 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row mb-3" id="product-gallery">
-
+                                            <div class="mb-3 row" id="product-gallery">
+                                                @if ($productImages->isNotEmpty())
+                                                    @foreach ($productImages as $image)
+                                                        <div class="col-md-3" id="image-row-{{ $image->id }}">
+                                                            <div class="border shadow card">
+                                                                <input type="hidden" name="image_array[]" value="{{ $image->id }}">
+                                                                <img src="{{ asset('uploads/product/'.$image->image) }}" class="card-img-top" alt="">
+                                                                <div class="card-body">
+                                                                    <a href="javascript:void(0)" onclick="deleteImage({{ $image->id }})" class="border-0 btn btn-danger btn-sm rounded-1">Supprimer <i class="fa fa-trash"></i></a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                @endif
                                             </div>
                                             <hr>
 
@@ -185,18 +197,22 @@
                                         <div class="mb-3">
                                             <label for="is_featured" class="form-label">en vedette</label>
                                             <select class="form-select" id="is_featured" name="is_featured">
-                                                <option value="Yes">Oui</option>
-                                                <option value="No">Non</option>
+                                                <option {{ ($product->is_featured == 'Yes') ? 'selected' : '' }} value="Yes">Oui</option>
+                                                <option {{ ($product->is_featured == 'No') ? 'selected' : '' }} value="No">Non</option>
                                             </select>
                                         </div>
 
                                         <div class="mb-3">
-                                            <div class="card rounded-1 mb-3">
+                                            <div class="mb-3 card rounded-1">
                                                 <div class="card-body">
                                                     <div class="mb-3">
-                                                        <h2 class="h4 mb-3">Produits associés</h2>
+                                                        <h2 class="mb-3 h4">Produits associés</h2>
                                                         <select multiple class="related-product w-100" name="related_products[]" id="related_products">
-
+                                                            @if (!empty($relatedProducts))
+                                                                @foreach($relatedProducts as $relProduct)
+                                                                    <option selected value="{{ $relProduct->id }}">{{ $relProduct->title }}</option>
+                                                                @endforeach
+                                                            @endif
                                                         </select>
                                                     </div>
                                                 </div>
@@ -217,4 +233,133 @@
 
         </div> <!-- container-fluid -->
 
+@endsection
+@section('backendJs')
+    <script>
+        $('.related-product').select2({
+            ajax: {
+                url: '{{ route("admin.getProducts") }}',
+                dataType: 'json',
+                tags: true,
+                multiple: true,
+                minimumInputLength: 3,
+                processResults: function (data) {
+                    return {
+                        results: data.tags
+                    };
+                }
+            }
+        });
+
+        $("#title").change(function() {
+            element = $(this);
+            $("button[type='submit']").prop('desabled', true);
+            $.ajax({
+                url: '{{ route("getSlug") }}',
+                type: 'GET',
+                data: {title: element.val()},
+                dataType: 'json',
+                success: function (response) {
+                    $("button[type='submit']").prop('desabled', false);
+                    if (response['status'] == true) {
+                        $("#slug").val(response['slug']);
+                    }
+                }
+            });
+        });
+
+        $("#editProdForm").submit(function(e) {
+            e.preventDefault();
+            let formArray = $(this).serializeArray();
+            $("button[type='submit']").prop('desabled',true);
+
+            $.ajax({
+                url: '{{ route("admin.product.updated",$product->id) }}',
+                type: 'PUT',
+                data: formArray,
+                dataType: 'json',
+                success: function (response) {
+                    $("button[type='submit']").prop('desabled',false);
+
+                    if (response['status'] == true) {
+
+                        $('.error').removeClass('invalid-feedback').html('');
+                        $("input[type='text'], select, input[type='number']").removeClass('is-invalid');
+
+                        window.location.href="{{ route('admin.product') }}";
+
+                    } else {
+
+                        let errors = response['errors'];
+
+                        $('.error').removeClass('invalid-feedback').html('');
+                        $("input[type='text'], select, input[type='number']").removeClass('is-invalid');
+
+                        $.each(errors, function(key,value) {
+                            $(`#${key}`)
+                            .addClass('is-invalid')
+                            .siblings('p')
+                            .addClass('invalid-feedback')
+                            .html(value);
+                        });
+                    }
+                },
+                error: function () {
+                    console.log('Quelque chose bloque les choses?');
+                }
+            });
+        });
+
+        $("#category").change(function(event) {
+
+            let category_id = $(this).val();
+            $.ajax({
+                url: '{{ route("admin.productSubCategorie") }}',
+                type: 'GET',
+                data: {category_id:category_id},
+                dataType: 'json',
+                success: function (response) {
+                    $("#sub_category").find("option").not(":first").remove();
+                    $.each(response["subCategories"], function(key,item) {
+                        $("#sub_category").append(`<option value='${item.id}'>${item.name}</option>`)
+                    })
+                },
+                error: function () {
+                    console.log('Quelque chose bloque les choses?');
+                }
+            });
+        });
+
+        Dropzone.autoDiscover = false;
+        const dropzone = $("#image").dropzone({
+            url:  "{{ route('temp-images.create') }}",
+            maxFiles: 10,
+            paramName: 'image',
+            addRemoveLinks: true,
+            acceptedFiles: "image/jpeg,image/png,image/gif,image/webp",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }, success: function(file, response){
+                let html = `
+                <div class="col-md-3" id="image-row-${response.image_id}">
+                    <div class="card">
+                        <input type="hidden" name="image_array[]" value="${response.image_id}">
+                        <img src="${response.ImagePath}" class="card-img-top" alt="">
+                        <div class="card-body">
+                            <a href="javascript:void(0)" onclick="deleteImage(${response.image_id})" class="border-0 btn btn-danger btn-sm rounded-1">Supprimer <i class="fa fa-trash"></i></a>
+                        </div>
+                    </div>
+                </div>`;
+                $("#product-gallery").append(html);
+            },
+            complete: function (file) {
+                this.removeFile(file);
+            }
+        });
+
+        function deleteImage(id){
+            $("#image-row-"+id).remove();
+        }
+
+    </script>
 @endsection
