@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\ProductSubCategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\TempImagesController;
+use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\IsUser;
@@ -15,12 +16,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
-// Frontend
-Route::get('/', function () {
-    return view('welcome');
-});
+// FRONTEND
+Route::get('/', [HomeController::class, 'home'])->name('home');
 
-// Account.
+// ACCOUNT.
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -33,7 +32,7 @@ Route::middleware(['auth', IsUser::class])->group(function () {
 
 require __DIR__.'/auth.php';
 
-// Backend
+// ADMIN
 Route::prefix('admin')->middleware(['auth', IsAdmin::class])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/logout', [AdminController::class, 'destroy'])->name('admin.logout');
