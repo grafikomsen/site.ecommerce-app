@@ -1,123 +1,67 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-
         <meta charset="utf-8" />
-        <title>Log In | Tapeli - Responsive Admin Dashboard Template</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc."/>
-        <meta name="author" content="Zoyothemes"/>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-        <!-- App favicon -->
-        <link rel="shortcut icon" href="assets/images/favicon.ico">
-
-        <!-- App css -->
-        <link href="{{ asset('admin/assets/css/app.min.css') }}" rel="stylesheet" type="text/css" id="app-style" />
-
-        <!-- Icons -->
-        <link href="{{ asset('admin/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
-
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{{ config('app.name', 'Connexion Amazon') }}</title>
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <link rel="stylesheet" href="{{ asset('frontend-assets/fontawesome/css/all.min.css') }}" />
     </head>
+    <body class="bg-gray-300">
+        <div  class="mx-auto my-14 max-w-sm sm:my-20 border-2 p-8 rounded-md shadow-md bg-[#222F3D]">
+            <a href="{{ route('home') }}" class=" flex justify-center">
+                <img class="w-[150px]" src="{{ asset('frontend-assets/images/amazon_logo.png') }}" alt="Logo">
+            </a>
+            <h3 class="text-white text-lg py-2">S'identifier</h3>
+            <form action="{{ route('login') }}" method="POST">
+                @csrf
+                <div class="grid grid-cols-1 gap-x-8 gap-y-4">
 
-    <body class="bg-white">
-        <!-- Begin page -->
-        <div class="account-page">
-            <div class="p-0 container-fluid">
-                <div class="row align-items-center g-0">
-                    <div class="col-xl-5">
-                        <div class="row">
-                            <div class="mx-auto col-md-7">
-                                <div class="p-4 mb-0 border-0 p-md-5 p-lg-0">
-                                    <div class="p-0 mb-4">
-                                        <a href="index.html" class="auth-logo">
-                                            <img src="{{ asset('admin/assets/images/logo-dark.png') }}" alt="logo-dark" class="mx-auto" height="28" />
-                                        </a>
-                                    </div>
-
-                                    <div class="pt-0">
-                                        <form class="my-4" method="POST" action="{{ route('login') }}">
-                                            @csrf
-
-                                            <div class="mb-3 form-group">
-                                                <label for="email" class="form-label">Email address</label>
-                                                <input class="form-control" type="email" id="email" name="email" :value="old('email')" placeholder="Enter your email">
-                                                @error('email')
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                @enderror
-                                            </div>
-
-                                            <div class="mb-3 form-group">
-                                                <label for="password" class="form-label">Password</label>
-                                                <input class="form-control" type="password" id="password" name="password" placeholder="Enter your password">
-                                                @error('password')
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                @enderror
-                                            </div>
-
-                                            <div class="mb-3 form-group d-flex">
-                                                <div class="col-sm-6">
-                                                    <div class="form-check">
-                                                        <input  id="remember_me" type="checkbox" class="form-check-input" name="remember" checked>
-                                                        <label class="form-check-label" for="remember_me">Souviens-toi de moi</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6 text-end">
-                                                    @if (Route::has('password.request'))
-                                                        <a class='text-muted fs-14' href="{{ route('password.request') }}">
-                                                            Mot de passe oublié ?
-                                                        </a>
-                                                    @endif
-                                                </div>
-                                            </div>
-
-                                            <div class="mb-0 form-group row">
-                                                <div class="col-12">
-                                                    <div class="d-grid">
-                                                        <button class="btn btn-primary" type="submit"> Se connecter </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-
-                                        <div class="mb-4 text-center text-muted">
-                                            <p class="mb-0">Vous n avez pas de compte ? <a class='text-primary ms-2 fw-medium' href="{{ route('register') }}">Inscrivez-vous</a></p>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
+                    <!-- Email -->
+                    <div>
+                        <label for="email" class="block text-sm/6 font-semibold text-white">Email</label>
+                        <div class="mt-1">
+                            <input type="email" name="email" :value="old('email')" class="block w-full rounded-md bg-white/5 px-3.5 py-2 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500" />
                         </div>
+                        @error('email')
+                            <p class="text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
 
-                    <div class="col-xl-7">
-                        <div class="p-4 account-page-bg p-md-5">
-                            <div class="text-center">
-                                <h3 class="mb-3 text-dark pera-title">Quick, Effective, and Productive With Tapeli Admin Dashboard</h3>
-                                <div class="auth-image">
-                                    <img src="{{ asset('admin/assets/images/authentication.svg') }}" class="mx-auto img-fluid"  alt="images">
-                                </div>
-                            </div>
+                    <!-- Password -->
+                    <div>
+                        <label for="password" class="block text-sm/6 font-semibold text-white">Password</label>
+                        <div class="mt-1">
+                            <input type="password" name="password" class="block w-full rounded-md bg-white/5 px-3.5 py-2 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500" />
+                        </div>
+                        @error('password')
+                            <p class="text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <!-- Remember Me -->
+                        <div class="block mt-2">
+                            <label for="remember_me" class="inline-flex items-center">
+                                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
+                                <span class="ms-2 text-sm text-gray-200">Remember me</span>
+                            </label>
+                        </div>
+
+                        <div>
+                            @if (Route::has('password.request'))
+                                <a class="underline text-sm text-gray-200 hover:text-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
+                                    Forgot your password?
+                                </a>
+                            @endif
                         </div>
                     </div>
+                    <button class="bg-orange-500 text-white p-2 rounded-md" type="submit">Se connecter</button>
+                    <a class="bg-orange-500 text-white p-2 rounded-md text-center" href="" >Se connecter avec google</a>
+                    <a href="{{ route('register') }}" class="text-end text-xs text-white">Nouveau chez Amazon ? créer votre compte Amazon</a>
                 </div>
-            </div>
+            </form>
         </div>
-
-        <!-- END wrapper -->
-
-        <!-- Vendor -->
-        <script src="{{ asset('admin/assets/libs/jquery/jquery.min.js') }}"></script>
-        <script src="{{ asset('admin/assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-        <script src="{{ asset('admin/assets/libs/simplebar/simplebar.min.js') }}"></script>
-        <script src="{{ asset('admin/assets/libs/node-waves/waves.min.js') }}"></script>
-        <script src="{{ asset('admin/assets/libs/waypoints/lib/jquery.waypoints.min.js') }}"></script>
-        <script src="{{ asset('admin/assets/libs/jquery.counterup/jquery.counterup.min.js') }}"></script>
-        <script src="{{ asset('admin/assets/libs/feather-icons/feather.min.js') }}"></script>
-
-        <!-- App js-->
-        <script src="{{ asset('admin/assets/js/app.js') }}"></script>
-
     </body>
 </html>
 
