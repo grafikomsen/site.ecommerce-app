@@ -1,124 +1,70 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-
         <meta charset="utf-8" />
-        <title>Register | Tapeli - Responsive Admin Dashboard Template</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc."/>
-        <meta name="author" content="Zoyothemes"/>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-        <!-- App favicon -->
-        <link rel="shortcut icon" href="assets/images/favicon.ico">
-
-        <!-- App css -->
-        <link href="{{ asset('admin/assets/css/app.min.css') }}" rel="stylesheet" type="text/css" id="app-style" />
-
-        <!-- Icons -->
-        <link href="{{ asset('admin/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
-
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{{ config('app.name', 'Inscription Amazon') }}</title>
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <link rel="stylesheet" href="{{ asset('frontend-assets/fontawesome/css/all.min.css') }}" />
     </head>
+    <body class="bg-gray-300">
+        <div  class="mx-auto my-8 max-w-sm sm:my-20 border-2 p-8 rounded-md shadow-md bg-[#222F3D]">
+            <a href="{{ route('home') }}" class=" flex justify-center">
+                <img class="w-[150px]" src="{{ asset('frontend-assets/images/amazon_logo.png') }}" alt="Logo">
+            </a>
+            <h3 class="text-white text-lg py-2">Créer un compte</h3>
+            <form action="{{ route('register') }}" method="POST">
+                @csrf
+                <div class="grid grid-cols-1 gap-x-8 gap-y-4">
 
-    <body class="bg-white">
-
-        <!-- Begin page -->
-        <div class="account-page">
-            <div class="container-fluid p-0">
-                <div class="row align-items-center g-0">
-                    <div class="col-xl-5">
-                        <div class="row">
-                            <div class="col-md-7 mx-auto">
-                                <div class="mb-0 border-0 p-md-5 p-lg-0 p-4">
-                                    <div class="mb-4 p-0">
-                                        <a href="index.html" class="auth-logo">
-                                            <img src="{{ asset('admin/assets/images/logo-dark.png') }}" alt="logo-dark" class="mx-auto" height="28" />
-                                        </a>
-                                    </div>
-
-                                    <div class="pt-0">
-                                        <form method="POST" action="{{ route('register') }}" class="my-4">
-                                            @csrf
-
-                                            <div class="form-group mb-3">
-                                                <label for="name" class="form-label">Username</label>
-                                                <input class="form-control" type="text" id="name" name="name" :value="old('name')" placeholder="Enter your Username">
-                                                @error('name')
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                @enderror
-                                            </div>
-
-                                            <div class="form-group mb-3">
-                                                <label for="email" class="form-label">Email address</label>
-                                                <input class="form-control" type="email" id="email" name="email" :value="old('email')"placeholder="Enter your email">
-                                                @error('email')
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                @enderror
-                                            </div>
-
-                                            <div class="form-group mb-3">
-                                                <label for="password" class="form-label">Password</label>
-                                                <input class="form-control" type="password" id="password" name="password" placeholder="Enter your password">
-                                                @error('password')
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                @enderror
-                                            </div>
-
-                                            <div class="form-group mb-3">
-                                                <label for="password_confirmation" class="form-label">Password confirmation</label>
-                                                <input class="form-control" type="password" id="password_confirmation" name="password_confirmation" placeholder="Password confirm">
-                                                @error('password_confirmation')
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                @enderror
-                                            </div>
-
-                                            <div class="form-group mb-0 row">
-                                                <div class="col-12">
-                                                    <div class="d-grid">
-                                                        <button class="btn btn-primary" type="submit"> Register</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-
-                                        <div class="text-center text-muted mb-4">
-                                            <p class="mb-0">Vous avez déjà un compte ?<a class='text-primary ms-2 fw-medium' href='{{ route('login') }}'>Connectez-vous ici.</a></p>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
+                    <!-- Name -->
+                    <div>
+                        <label for="name" class="block text-sm/6 font-semibold text-white">Name</label>
+                        <div class="mt-1">
+                            <input type="text" name="name" :value="old('name')" class="block w-full rounded-md bg-white/5 px-3.5 py-2 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500" />
                         </div>
+                        @error('name')
+                            <p class="text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
 
-                    <div class="col-xl-7">
-                        <div class="account-page-bg p-md-5 p-4">
-                            <div class="text-center">
-                                <h3 class="text-dark mb-3 pera-title">Quick, Effective, and Productive With Tapeli Admin Dashboard</h3>
-                                <div class="auth-image">
-                                    <img src="{{ asset('admin/assets/images/authentication.svg') }}" class="mx-auto img-fluid"  alt="images">
-                                </div>
-                            </div>
+                    <!-- Email -->
+                    <div>
+                        <label for="email" class="block text-sm/6 font-semibold text-white">Email</label>
+                        <div class="mt-1">
+                            <input type="email" name="email" :value="old('email')" class="block w-full rounded-md bg-white/5 px-3.5 py-2 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500" />
                         </div>
+                        @error('email')
+                            <p class="text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
 
+                    <!-- Password -->
+                    <div>
+                        <label for="password" class="block text-sm/6 font-semibold text-white">Password</label>
+                        <div class="mt-1">
+                            <input type="password" name="password" class="block w-full rounded-md bg-white/5 px-3.5 py-2 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500" />
+                        </div>
+                        @error('password')
+                            <p class="text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div>
+                        <label for="password_confirmation" class="block text-sm/6 font-semibold text-white">Confirm Password</label>
+                        <div class="mt-1">
+                            <input type="password" name="password_confirmation" class="block w-full rounded-md bg-white/5 px-3.5 py-2 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500" />
+                        </div>
+                        @error('password_confirmation')
+                            <p class="text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <button class="bg-orange-500 text-white p-2 rounded-md" type="submit">Continuer</button>
+                    <a href="{{ route('login') }}" class="text-end text-xs text-white">Vous possédez déjà un compte ? Identifiez-vous</a>
                 </div>
-            </div>
+            </form>
         </div>
-        <!-- END wrapper -->
-
-        <!-- Vendor -->
-        <script src="{{ asset('admin/assets/libs/jquery/jquery.min.js') }}"></script>
-        <script src="{{ asset('admin/assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-        <script src="{{ asset('admin/assets/libs/simplebar/simplebar.min.js') }}"></script>
-        <script src="{{ asset('admin/assets/libs/node-waves/waves.min.js') }}"></script>
-        <script src="{{ asset('admin/assets/libs/waypoints/lib/jquery.waypoints.min.js') }}"></script>
-        <script src="{{ asset('admin/assets/libs/jquery.counterup/jquery.counterup.min.js') }}"></script>
-        <script src="{{ asset('admin/assets/libs/feather-icons/feather.min.js') }}"></script>
-
-        <!-- App js-->
-        <script src="{{ asset('admin/assets/js/app.js') }}"></script>
-
     </body>
 </html>
