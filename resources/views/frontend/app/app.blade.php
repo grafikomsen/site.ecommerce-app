@@ -7,7 +7,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <link rel="stylesheet" href="{{ asset('frontend-assets/fontawesome/css/all.min.css') }}" />
     </head>
-    <body>
+    <body class="font-poppins">
         <header class="bg-[#0F1111]">
             <nav class="px-8 py-2">
                 <div class="hidden lg:flex lg:justify-between lg:items-center text-white font-poppins">

@@ -1,375 +1,94 @@
-<div class="app-sidebar-menu">
-    <div class="h-100" data-simplebar>
+<div class="flex flex-col justify-between h-screen bg-white border-gray-100 border-e">
+    <div class="px-4 py-6">
+        <span class="grid w-32 h-10 text-xs text-gray-600 bg-gray-100 rounded-lg place-content-center">
+            <a href="{{ route('admin.dashboard') }}"><img src="" alt="">Logo</a>
+        </span>
 
-        <!--- Sidemenu -->
-        <div id="sidebar-menu">
+        <ul class="mt-6 space-y-1">
+            <li class="space-y-2">
+                <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-sm">
+                    Dashboard
+                </a>
+                <a href="{{ route('admin.categorie') }}" class="block px-4 py-2 text-sm font-medium text-gray-700 bg-white rounded-sm hover:bg-gray-100 hover:text-gray-700">
+                    Categories
+                </a>
+                <a href="{{ route('admin.subCategorie') }}" class="block px-4 py-2 text-sm font-medium text-gray-700 bg-white rounded-sm hover:bg-gray-100 hover:text-gray-700">
+                    Sub Categories
+                </a>
+                <a href="{{ route('admin.brand') }}" class="block px-4 py-2 text-sm font-medium text-gray-700 bg-white rounded-sm hover:bg-gray-100 hover:text-gray-700">
+                    Brand
+                </a>
+                <a href="{{ route('admin.product') }}" class="block px-4 py-2 text-sm font-medium text-gray-700 bg-white rounded-sm hover:bg-gray-100 hover:text-gray-700">
+                    Product
+                </a>
+            </li>
+        </ul>
+    </div>
 
-            <div class="logo-box">
-                <a href="{{ route('admin.dashboard') }}" class="logo logo-light">
-                    <span class="logo-sm">
-                        <img src="{{ asset('admin/assets/images/logo-sm.png') }}" alt="" height="22">
-                    </span>
-                    <span class="logo-lg">
-                        <img src="{{ asset('admin/assets/images/logo-light.png') }}" alt="" height="24">
-                    </span>
+    <div class="sticky inset-x-0 bottom-0 px-3 border-t border-gray-100">
+        <ul class="space-y-2">
+            <li>
+                <a href="#" class="flex items-center gap-2 px-4 py-2 text-gray-700 bg-gray-100 rounded-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" class="opacity-75 size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+
+                <span class="text-sm font-medium"> General </span>
                 </a>
-                <a href="{{ route('admin.dashboard') }}" class="logo logo-dark">
-                    <span class="logo-sm">
-                        <img src="{{ asset('admin/assets/images/logo-sm.png') }}" alt="" height="22">
-                    </span>
-                    <span class="logo-lg">
-                        <img src="{{ asset('admin/assets/images/logo-dark.png') }}" alt="" height="24">
-                    </span>
+            </li>
+
+            <li>
+                <a href="#" class="flex items-center gap-2 px-4 py-2 text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="opacity-75 size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                </svg>
+
+                <span class="text-sm font-medium"> Teams </span>
                 </a>
+            </li>
+
+            <li>
+                <a href="#" class="flex items-center gap-2 px-4 py-2 text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="opacity-75 size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+                </svg>
+
+                <span class="text-sm font-medium"> Billing </span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#" class="flex items-center gap-2 px-4 py-2 text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="opacity-75 size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                </svg>
+
+                <span class="text-sm font-medium"> Invoices </span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#" class="flex items-center gap-2 px-4 py-2 text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="opacity-75 size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                </svg>
+
+                <span class="text-sm font-medium"> Account </span>
+                </a>
+            </li>
+        </ul>
+
+        <a href="#" class="flex items-center gap-2 p-4 mt-5 bg-white hover:bg-gray-100 hover:text-gray-700 hover:bg-gray-50">
+            <img alt="" src="https://images.unsplash.com/photo-1600486913747-55e5470d6f40?auto=format&amp;fit=crop&amp;q=80&amp;w=1160" class="object-cover rounded-full size-10">
+
+            <div>
+                <p class="text-xs">
+                <strong class="block font-medium">Eric Frusciante</strong>
+
+                <span> eric@frusciante.com </span>
+                </p>
             </div>
-
-            <ul id="side-menu">
-
-                <li>
-                    <a href="#sidebarDashboards" data-bs-toggle="collapse">
-                        <i data-feather="home"></i>
-                        <span> Dashboard </span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <div class="collapse" id="sidebarDashboards">
-                        <ul class="nav-second-level">
-                            <li>
-                                <a href="{{ route('admin.dashboard') }}" class="tp-link" {{ (Session::get('page') == 'dashboard') ? 'active' : '' }}>Dashboard</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
-                <!-- <li>
-                    <a href="landing.html" target="_blank">
-                        <i data-feather="globe"></i>
-                        <span> Landing </span>
-                    </a>
-                </li> -->
-
-                <li class="menu-title">Pages</li>
-
-                <li>
-                    <a href="#sidebarCategory" data-bs-toggle="collapse">
-                        <i data-feather="users"></i>
-                        <span> Catégorie </span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <div class="collapse" id="sidebarCategory">
-                        <ul class="nav-second-level">
-                            <li>
-                                <a href="{{ route('admin.categorie') }}" class="tp-link" {{ (Session::get('page') == 'categorie') ? 'active' : '' }}>Catégorie</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
-                <li>
-                    <a href="#sideSubCategory" data-bs-toggle="collapse">
-                        <i data-feather="users"></i>
-                        <span> Sous Catégorie </span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <div class="collapse" id="sideSubCategory">
-                        <ul class="nav-second-level">
-                            <li>
-                                <a href="{{ route('admin.subCategorie') }}" class="tp-link" {{ (Session::get('page') == 'subCategorie') ? 'active' : '' }}>Sous catégorie</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
-                <li>
-                    <a href="#sidebarBrand" data-bs-toggle="collapse">
-                        <i data-feather="users"></i>
-                        <span> Marques </span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <div class="collapse" id="sidebarBrand">
-                        <ul class="nav-second-level">
-                            <li>
-                                <a href="{{ route('admin.brand') }}" class="tp-link" {{ (Session::get('page') == 'brand') ? 'active' : '' }}>Marque</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
-                <li>
-                    <a href="#sidebarProduct" data-bs-toggle="collapse">
-                        <i data-feather="users"></i>
-                        <span> Produits </span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <div class="collapse" id="sidebarProduct">
-                        <ul class="nav-second-level">
-                            <li>
-                                <a href="{{ route('admin.product') }}" class="tp-link" {{ (Session::get('page') == 'product') ? 'active' : '' }}>Produits</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
-                <li class="mt-2 menu-title">General</li>
-
-                <li>
-                    <a href="#sidebarBaseui" data-bs-toggle="collapse">
-                        <i data-feather="package"></i>
-                        <span> Components </span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <div class="collapse" id="sidebarBaseui">
-                        <ul class="nav-second-level">
-                            <li>
-                                <a href="ui-accordions.html" class="tp-link">Accordions</a>
-                            </li>
-                            <li>
-                                <a href="ui-alerts.html" class="tp-link">Alerts</a>
-                            </li>
-                            <li>
-                                <a href="ui-badges.html" class="tp-link">Badges</a>
-                            </li>
-                            <li>
-                                <a href="ui-breadcrumb.html" class="tp-link">Breadcrumb</a>
-                            </li>
-                            <li>
-                                <a href="ui-buttons.html" class="tp-link">Buttons</a>
-                            </li>
-                            <li>
-                                <a href="ui-cards.html" class="tp-link">Cards</a>
-                            </li>
-                            <li>
-                                <a href="ui-collapse.html" class="tp-link">Collapse</a>
-                            </li>
-                            <li>
-                                <a href="ui-dropdowns.html" class="tp-link">Dropdowns</a>
-                            </li>
-                            <li>
-                                <a href="ui-video.html" class="tp-link">Embed Video</a>
-                            </li>
-                            <li>
-                                <a href="ui-grid.html" class="tp-link">Grid</a>
-                            </li>
-                            <li>
-                                <a href="ui-images.html" class="tp-link">Images</a>
-                            </li>
-                            <li>
-                                <a href="ui-list.html" class="tp-link">List Group</a>
-                            </li>
-                            <li>
-                                <a href="ui-modals.html" class="tp-link">Modals</a>
-                            </li>
-                            <li>
-                                <a href="ui-placeholders.html" class="tp-link">Placeholders</a>
-                            </li>
-                            <li>
-                                <a href="ui-pagination.html" class="tp-link">Pagination</a>
-                            </li>
-                            <li>
-                                <a href="ui-popovers.html" class="tp-link">Popovers</a>
-                            </li>
-                            <li>
-                                <a href="ui-progress.html" class="tp-link">Progress</a>
-                            </li>
-                            <li>
-                                <a href="ui-scrollspy.html" class="tp-link">Scrollspy</a>
-                            </li>
-                            <li>
-                                <a href="ui-spinners.html" class="tp-link">Spinners</a>
-                            </li>
-                            <li>
-                                <a href="ui-tabs.html" class="tp-link">Tabs</a>
-                            </li>
-                            <li>
-                                <a href="ui-tooltips.html" class="tp-link">Tooltips</a>
-                            </li>
-                            <li>
-                                <a href="ui-typography.html" class="tp-link">Typography</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
-                <li>
-                    <a href="widgets.html" class="tp-link">
-                        <i data-feather="aperture"></i>
-                        <span> Widgets </span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#sidebarAdvancedUI" data-bs-toggle="collapse">
-                        <i data-feather="cpu"></i>
-                        <span> Extended UI </span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <div class="collapse" id="sidebarAdvancedUI">
-                        <ul class="nav-second-level">
-                            <li>
-                                <a href="extended-carousel.html" class="tp-link">Carousel</a>
-                            </li>
-                            <li>
-                                <a href="extended-notifications.html" class="tp-link">Notifications</a>
-                            </li>
-                            <li>
-                                <a href="extended-offcanvas.html" class="tp-link">Offcanvas</a>
-                            </li>
-                            <li>
-                                <a href="extended-range-slider.html" class="tp-link">Range Slider</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
-                <li>
-                    <a href="#sidebarIcons" data-bs-toggle="collapse">
-                        <i data-feather="award"></i>
-                        <span> Icons </span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <div class="collapse" id="sidebarIcons">
-                        <ul class="nav-second-level">
-                            <li>
-                                <a href="icons-feather.html" class="tp-link">Feather Icons</a>
-                            </li>
-                            <li>
-                                <a href="icons-mdi.html" class="tp-link">Material Design Icons</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
-                <li>
-                    <a href="#sidebarForms" data-bs-toggle="collapse">
-                        <i data-feather="briefcase"></i>
-                        <span> Forms </span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <div class="collapse" id="sidebarForms">
-                        <ul class="nav-second-level">
-                            <li>
-                                <a href="forms-elements.html" class="tp-link">General Elements</a>
-                            </li>
-                            <li>
-                                <a href="forms-validation.html" class="tp-link">Validation</a>
-                            </li>
-                            <li>
-                                <a href="forms-quilljs.html" class="tp-link">Quilljs Editor</a>
-                            </li>
-                            <li>
-                                <a href="forms-pickers.html" class="tp-link">Picker</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
-                <li>
-                    <a href="#sidebarTables" data-bs-toggle="collapse">
-                        <i data-feather="table"></i>
-                        <span> Tables </span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <div class="collapse" id="sidebarTables">
-                        <ul class="nav-second-level">
-                            <li>
-                                <a href="tables-basic.html" class="tp-link">Basic Tables</a>
-                            </li>
-                            <li>
-                                <a href="tables-datatables.html" class="tp-link">Data Tables</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
-                <li>
-                    <a href="#sidebarCharts" data-bs-toggle="collapse">
-                        <i data-feather="pie-chart"></i>
-                        <span> Apex Charts </span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <div class="collapse" id="sidebarCharts">
-                        <ul class="nav-second-level">
-                            <li>
-                                <a href='charts-line.html'>Line</a>
-                            </li>
-                            <li>
-                                <a href='charts-area.html'>Area</a>
-                            </li>
-                            <li>
-                                <a href='charts-column.html'>Column</a>
-                            </li>
-                            <li>
-                                <a href='charts-bar.html'>Bar</a>
-                            </li>
-                            <li>
-                                <a href='charts-mixed.html'>Mixed</a>
-                            </li>
-                            <li>
-                                <a href='charts-timeline.html'>Timeline</a>
-                            </li>
-                            <li>
-                                <a href='charts-rangearea.html'>Range Area</a>
-                            </li>
-                            <li>
-                                <a href='charts-funnel.html'>Funnel</a>
-                            </li>
-                            <li>
-                                <a href='charts-candlestick.html'>Candlestick</a>
-                            </li>
-                            <li>
-                                <a href='charts-boxplot.html'>Boxplot</a>
-                            </li>
-                            <li>
-                                <a href='charts-bubble.html'>Bubble</a>
-                            </li>
-                            <li>
-                                <a href='charts-scatter.html'>Scatter</a>
-                            </li>
-                            <li>
-                                <a href='charts-heatmap.html'>Heatmap</a>
-                            </li>
-                            <li>
-                                <a href='charts-treemap.html'>Treemap</a>
-                            </li>
-                            <li>
-                                <a href='charts-pie.html'>Pie</a>
-                            </li>
-                            <li>
-                                <a href='charts-radialbar.html'>Radialbar</a>
-                            </li>
-                            <li>
-                                <a href='charts-radar.html'>Radar</a>
-                            </li>
-                            <li>
-                                <a href='charts-polararea.html'>Polar</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
-                <li>
-                    <a href="#sidebarMaps" data-bs-toggle="collapse">
-                        <i data-feather="map"></i>
-                        <span> Maps </span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <div class="collapse" id="sidebarMaps">
-                        <ul class="nav-second-level">
-                            <li>
-                                <a href="maps-google.html" class="tp-link">Google Maps</a>
-                            </li>
-                            <li>
-                                <a href="maps-vector.html" class="tp-link">Vector Maps</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
-            </ul>
-
-        </div>
-        <!-- End Sidebar -->
-
-        <div class="clearfix"></div>
-
+        </a>
     </div>
 </div>

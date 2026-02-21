@@ -1,90 +1,69 @@
 @extends('admin.app.app')
 @section('content')
 
-    <div class="content">
+    <div class="overflow-x-auto bg-gray-100 p-4 m-4 rounded-sm shadow-md">
 
-        <!-- Start Content-->
-        <div class="container-xxl">
+        <div class="text-center col-md-12">
+            @include('admin.app.message')
+        </div>
 
-            <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
-                <div class="flex-grow-1">
-                    <h4 class="m-0 fs-18 fw-semibold">Category</h4>
-                </div>
-
-                <div class="text-end">
-                    <ol class="py-0 m-0 breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Category</li>
-                    </ol>
-                </div>
-            </div>
-
-            <div class="col-md-12 text-center">
-                @include('admin.app.message')
-            </div>
-
-           <!-- Datatables  -->
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-
-                        <div class="card-header">
-                            <h5 class="mb-3 card-title">Category</h5>
-                            <a href="{{ route('admin.categorie.create') }}" class="btn btn-primary float-end">Ajoutez une catégorie</a>
-                            <form action="" method="GET">
-                                <div class="input-group input-group" style="width: 250px;">
-                                    <input type="text" value="{{ Request::get('keyword') }}" name="keyword" class="form-control rounded-1 float-right" placeholder="Cherchez ici...">
-                                    <div class="input-group-append">
-                                        <button type="submit" class="btn btn-primary border-0 rounded-1">
-                                            search
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div><!-- end card header -->
-
-                        <div class="card-body">
-                            <table id="datatable" class="table table-bordered dt-responsive table-responsive nowrap">
-                                <thead>
-                                <tr>
-                                    <th>N°</th>
-                                    <th>Name</th>
-                                    <th>Slug</th>
-                                    <th>Statut</th>
-                                    <th>Start date</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-
-                                    @if($categories->isNotEmpty())
-                                        @foreach($categories as $category)
-                                            <tr>
-                                                <td>{{ $category->id }}</td>
-                                                <td>{{ $category->name }}</td>
-                                                <td>{{ $category->slug }}</td>
-                                                <td>
-                                                    @if ($category->status)
-                                                        <a class="btn btn-info btn-sm">Oui</a>
-                                                    @else
-                                                        <a class="btn btn-danger btn-sm">Non</a>
-                                                    @endif
-                                                </td>
-                                                <td>{{ $category->created_at }}</td>
-                                                <td>
-                                                    <a class="btn btn-info btn-sm" href="{{ route('admin.categorie.edit',$category->id) }}">e</a>
-                                                    <a class="btn btn-danger btn-sm" onclick="deleteCategory({{ $category->id }})">s</a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    @endif
-                                </tbody>
-                            </table>
-                        </div>
+        <div class="flex-col">
+            <h5 class="mb-3 card-title">Category</h5>
+            <a href="{{ route('admin.categorie.create') }}" class="px-3 py-2 text-white rounded-sm bg-slate-400 hover:bg-slate-500 float-end">Ajoutez une catégorie</a>
+            <form method="GET">
+                <div class="flex lg:flex-row">
+                    <input type="text" value="{{ Request::get('keyword') }}" name="keyword" class="py-2 border-none rounded-l-sm" placeholder="Cherchez ici...">
+                    <div class="input-group-append">
+                        <button type="submit" class="px-3 py-2 bg-orange-500 rounded-r-sm text-orange-50">
+                            search
+                        </button>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
+        <!-- end card header -->
+
+        <table class="min-w-full my-8 divide-y-2 divide-gray-200 dark:divide-gray-700">
+            <thead class="ltr:text-left rtl:text-right">
+                <tr class="text-gray-600">
+                    <th class="px-3 py-2 whitespace-nowrap">N°</th>
+                    <th class="px-3 py-2 whitespace-nowrap">Name</th>
+                    <th class="px-3 py-2 whitespace-nowrap">Slug</th>
+                    <th class="px-3 py-2 whitespace-nowrap">Statut</th>
+                    <th class="px-3 py-2 whitespace-nowrap">Started date</th>
+                    <th class="px-3 py-2 whitespace-nowrap">Action</th>
+                </tr>
+            </thead>
+
+            <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                @if($categories->isNotEmpty())
+                    @foreach($categories as $category)
+                        <tr class="text-gray-600">
+                            <td class="px-3 py-2 whitespace-nowrap">{{ $category->id }}</td>
+                            <td class="px-3 py-2 whitespace-nowrap">{{ $category->name }}</td>
+                            <td class="px-3 py-2 whitespace-nowrap">{{ $category->slug }}</td>
+                            <td class="px-3 py-2 whitespace-nowrap">
+                                @if ($category->status)
+                                    <a class="btn btn-info btn-sm">Oui</a>
+                                @else
+                                    <a class="btn btn-danger btn-sm">Non</a>
+                                @endif
+                            </td>
+                            <td class="px-3 py-2 whitespace-nowrap">{{ $category->created_at }}</td>
+                            <td class="px-3 py-2 whitespace-nowrap">
+                                <a class="p-1 mx-1 text-white bg-blue-700 rounded-sm" href="{{ route('admin.categorie.edit',$category->id) }}">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                                <a class="p-1 mx-1 text-white bg-red-700 rounded-sm" onclick="deleteCategory({{ $category->id }})">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+                            </td>
+
+                        </tr>
+                    @endforeach
+                @endif
+            </tbody>
+        </table>
     </div>
 
 @endsection
