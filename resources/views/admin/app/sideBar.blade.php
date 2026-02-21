@@ -79,7 +79,7 @@
             </li>
         </ul>
 
-        <a href="#" class="flex items-center gap-2 p-4 mt-5 bg-white hover:bg-gray-100 hover:text-gray-700 hover:bg-gray-50">
+        <a href="#" class="flex items-center gap-2 p-4 mt-5 bg-white hover:bg-gray-100 hover:text-gray-700">
             <img alt="" src="https://images.unsplash.com/photo-1600486913747-55e5470d6f40?auto=format&amp;fit=crop&amp;q=80&amp;w=1160" class="object-cover rounded-full size-10">
 
             <div>
