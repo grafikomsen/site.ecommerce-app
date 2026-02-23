@@ -1,96 +1,121 @@
 @extends('admin.app.app')
 @section('content')
-    <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
-        <div class="flex-grow-1">
-            <h4 class="m-0 fs-18 fw-semibold">Modification de la sous catégorie</h4>
+
+    <div class="bg-gray-100 p-4 m-4 rounded-sm shadow-md">
+        <div class="flex items-center justify-between py-3">
+            <div class="">
+                <h4 class="m-0 fs-18 fw-semibold">Modification de la sous catégorie</h4>
+            </div>
+
+            <nav aria-label="Breadcrumb">
+                <ol class="flex items-center gap-1 text-sm text-gray-700">
+                    <li>
+                        <a href="{{ route('admin.dashboard') }}" class="block transition-colors hover:text-gray-900"> Dashboard </a>
+                    </li>
+
+                    <li class="rtl:rotate-180">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                    </li>
+
+                    <li>
+                        <a href="{{ route("admin.subCategorie") }}" class="block transition-colors hover:text-gray-900"> Sous catégorie </a>
+                    </li>
+
+                    <li class="rtl:rotate-180">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                    </li>
+
+                    <li>
+                        Modification de la sous catégorie
+                    </li>
+                </ol>
+            </nav>
         </div>
 
-        <div class="text-end">
-            <ol class="py-0 m-0 breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('admin.subCategorie') }}">Sous catégorie</a></li>
-                <li class="breadcrumb-item active">Modification de la sous catégorie</li>
-            </ol>
-        </div>
-    </div>
+        <!-- Form Validation -->
+        <div class="pt-5">
+            <!-- stard card header -->
+            <div class="flex items-center justify-between py-8">
+                <div class="">
+                    <h5 class="mb-0 card-title">Browser Defaults</h5>
+                </div>
+                <div class="">
+                    <a class=" bg-orange-500 text-orange-50 hover:bg-orange-600 px-3 py-2 rounded-sm" href="{{ route('admin.categorie') }}">Retour</a>
+                </div>
+            </div>
+            <!-- end card header -->
 
-    <!-- Form Validation -->
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="card">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h5 class="mb-0 card-title">Browser Defaults</h5>
-                        </div>
-                        <div class="col-md-6">
-                            <a class="btn btn-danger btn-sm float-end" href="{{ route('admin.subCategorie') }}">Retour</a>
-                        </div>
+            <!-- start card-body -->
+            <div class="">
+                <form name="editSubCategory" id="editSubCategory">
+
+                    <div class="py-2">
+                        <label for="name" class="text-sm font-medium text-gray-700">Sous category</label>
+                        <input type="text" class="mt-0.5 w-full rounded border-gray-300 shadow-sm sm:text-sm" value="{{ $subCategory->name }}" id="name" name="name" placeholder="Nom de la catégorie">
+                        <p></p>
                     </div>
-                </div><!-- end card header -->
+                    <div class="py-2">
+                        <label for="slug" class="text-sm font-medium text-gray-700">Slug</label>
+                        <input type="text" class="mt-0.5 w-full rounded border-gray-300 shadow-sm sm:text-sm" value="{{ $subCategory->slug }}" id="slug" name="slug" placeholder="Lien de la catégorie">
+                        <p></p>
+                    </div>
 
-                <div class="card-body">
-                    <form name="editSubCategory" id="editSubCategory" class="row g-3">
-                        <div class="col-md-6">
-                            <label for="name" class="form-label">Sous category</label>
-                            <input type="text" class="form-control" id="name" name="name" value="{{ $subCategory->name }}" placeholder="Nom de la catégorie">
-                            <p></p>
+
+                    <div class="mt-4">
+                        <label for="image">Image</label>
+                        <input type="hidden" id="image_id" name="image_id" value="">
+                        <div id="image" class="dropzone dz-clickable">
+                            <div class="dz-message needsclick">
+                                <br>Drop files here or click to upload.<br><br>
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <label for="slug" class="form-label">Slug</label>
-                            <input type="text" class="form-control" id="slug" name="slug" value="{{ $subCategory->slug }}" placeholder="Lien de la catégorie">
-                            <p></p>
-                        </div>
-                        <div class="col-md-12">
-                            <label for="category" class="form-label">Category</label>
-                            <select class="form-select" id="category" name="category">
-                                <option selected disabled value="">-- Selectionnez --</option>
+                        @if (!empty($subCategory->image))
+                            <div class="mt-4">
+                                <img src="{{ asset('uploads/sub-categories/'.$subCategory->image) }}" class="border-2 shadow-md p-2" width="100" height="100" alt="$subCategory->name">
+                            </div>
+                        @endif
+                    </div>
+
+
+                    <div class="mt-4">
+                        <label for="category" class="text-sm font-medium text-gray-700">Category</label>
+                        <select class="mt-0.5 w-full rounded border-gray-300 shadow-sm sm:text-sm" id="category" name="category">
+                            <option selected disabled value="">-- Selectionnez --</option>
                                 @if ($categories->isNotEmpty())
                                     @foreach ($categories as $category)
                                         <option {{ ($subCategory->category_id == $category->id) ? 'selected' : '' }} value="{{ $category->id }}">{{ $category->name }}</option>
                                     @endforeach
                                 @endif
-                            </select>
-                            <p></p>
-                        </div>
-                        <div class="col-md-12">
-                                <div class="mb-3">
-                                    <label for="image">Image</label>
-                                    <input type="hidden" id="image_id" name="image_id" value="">
-                                    <div id="image" class="dropzone dz-clickable">
-                                        <div class="dz-message needsclick">
-                                            <br>Drop files here or click to upload.<br><br>
-                                        </div>
-                                    </div>
-                                    @if (!empty($subCategory->image))
-                                        <div>
-                                            <img src="{{ asset('uploads/sub-categories/'.$subCategory->image) }}" class="border-2 shadow-md p-2" width="100" height="100" alt="$subCategory->name">
-                                        </div>
-                                    @endif
-                                </div>
-                            </div>
-                        <div class="col-md-6">
-                            <label for="showHome" class="form-label">Affichage</label>
-                            <select class="form-select" id="showHome" name="showHome">
-                                <option {{ ($subCategory->showHome == 'Yes') ? 'selected' : '' }} value="Yes">Oui</option>
-                                <option {{ ($subCategory->showHome == 'No') ? 'selected' : '' }} value="No">Non</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="status" class="form-label">Statut</label>
-                            <select class="form-select" id="status" name="status">
-                                <option {{ ($subCategory->status == 1) ? 'selected' : '' }} value="1">Activé</option>
-                                <option {{ ($subCategory->status == 0) ? 'selected' : '' }} value="0">Désactivé</option>
-                            </select>
-                        </div>
-                        <div class="col-12">
-                            <button class="btn btn-primary" type="submit">Modifiez</button>
-                        </div>
-                    </form>
-                </div> <!-- end card-body -->
-            </div> <!-- end card-->
-        </div> <!-- end col -->
+                        </select>
+                    </div>
+                    <div class="mt-4">
+                        <label for="showHome" class="text-sm font-medium text-gray-700">Affichage</label>
+                        <select class="mt-0.5 w-full rounded border-gray-300 shadow-sm sm:text-sm" id="showHome" name="showHome">
+                            <option {{ ($subCategory->showHome == 'Yes') ? 'selected' : '' }} value="Yes">Oui</option>
+                            <option {{ ($subCategory->showHome == 'No') ? 'selected' : '' }} value="No">Non</option>
+                        </select>
+                    </div>
+                    <div class="mt-4">
+                        <label for="status" class="text-sm font-medium text-gray-700">Statut</label>
+                        <select class="mt-0.5 w-full rounded border-gray-300 shadow-sm sm:text-sm" id="status" name="status">
+                            <option {{ ($subCategory->status == 1) ? 'selected' : '' }} value="1">Activé</option>
+                            <option {{ ($subCategory->status == 0) ? 'selected' : '' }} value="0">Désactivé</option>
+                        </select>
+                    </div>
+                    <div class="mt-4 rounded-sm">
+                        <button class="bg-orange-500 text-white px-3 py-2 hover:bg-orange-600" type="submit">Sauvegardez</button>
+                    </div>
+                </form>
+            </div>
+            <!-- end card-body -->
+        </div>
+        <!-- end card-->
     </div>
+
 @endsection
 
 @section('backendJs')
