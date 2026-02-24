@@ -37,7 +37,7 @@
         </div>
 
 
-        <form action="" method="POST" name="createProdForm" id="createProdForm">
+        <form method="POST" name="createProdForm" id="createProdForm">
 
             <div class="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8 bg-gray-100">
                 <div class="p-4 rounded bg-gray-300 lg:col-span-2">
@@ -145,70 +145,63 @@
                             <p></p>
                         </div>
                     </div>
+                    <div class="mb-3 card rounded-1">
+                        <h2 class="h4">Produits associés</h2>
+                        <select multiple class="related-product w-full" name="related_products[]" id="related_products">
+
+                        </select>
+                    </div>
                 </div>
 
                 <div class="p-4 rounded bg-gray-300">
-                        <div class="mb-3">
-                            <label for="status" class="form-label">Statut</label>
-                            <select class="mt-0.5 w-full rounded border-gray-300 shadow-sm sm:text-sm" id="status" name="status">
-                                <option value="1">Activé</option>
-                                <option value="0">Désactivée</option>
-                            </select>
-                        </div>
+                    <div class="mb-3">
+                        <label for="status" class="form-label">Statut</label>
+                        <select class="mt-0.5 w-full rounded border-gray-300 shadow-sm sm:text-sm" id="status" name="status">
+                            <option value="1">Activé</option>
+                            <option value="0">Désactivée</option>
+                        </select>
+                    </div>
 
-                        <div class="mb-3">
-                            <label for="category" class="form-label">Catégorie</label>
-                            <select class="mt-0.5 w-full rounded border-gray-300 shadow-sm sm:text-sm" id="category" name="category">
-                                <option value="">-- selectionnez --</option>
-                                @if ($categories->isNotEmpty())
-                                    @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                    @endforeach
-                                @endif
-                                <p></p>
-                            </select>
-                        </div>
+                    <div class="mb-3">
+                        <label for="category" class="form-label">Catégorie</label>
+                        <select class="mt-0.5 w-full rounded border-gray-300 shadow-sm sm:text-sm" id="category" name="category">
+                            <option value="">-- selectionnez --</option>
+                            @if ($categories->isNotEmpty())
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            @endif
+                            <p></p>
+                        </select>
+                    </div>
 
-                        <div class="mb-3">
-                            <label for="sub_category" class="subCategory">Sous catégorie</label>
-                            <select class="mt-0.5 w-full rounded border-gray-300 shadow-sm sm:text-sm" name="sub_category" id="sub_category">
-                                <option value="">-- selectionnez --</option>
-                                <p></p>
-                            </select>
-                        </div>
+                    <div class="mb-3">
+                        <label for="sub_category" class="subCategory">Sous catégorie</label>
+                        <select class="mt-0.5 w-full rounded border-gray-300 shadow-sm sm:text-sm" name="sub_category" id="sub_category">
+                            <option value="">-- selectionnez --</option>
+                            <p></p>
+                        </select>
+                    </div>
 
-                        <div class="mb-3">
-                            <label for="brand" class="form-label">Marque</label>
-                            <select class="mt-0.5 w-full rounded border-gray-300 shadow-sm sm:text-sm"  id="brand" name="brand">
-                                <option value="">-- selectionnez --</option>
-                                @if ($brands->isNotEmpty())
-                                    @foreach ($brands as $brand)
-                                        <option value="{{ $brand->id }}">{{ $brand->name }}</option>
-                                    @endforeach
-                                @endif
-                            </select>
-                        </div>
+                    <div class="mb-3">
+                        <label for="brand" class="form-label">Marque</label>
+                        <select class="mt-0.5 w-full rounded border-gray-300 shadow-sm sm:text-sm"  id="brand" name="brand">
+                            <option value="">-- selectionnez --</option>
+                            @if ($brands->isNotEmpty())
+                                @foreach ($brands as $brand)
+                                    <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                @endforeach
+                            @endif
+                        </select>
+                    </div>
 
-                        <div class="mb-3">
-                            <label for="is_featured" class="form-label">en vedette</label>
-                            <select class="mt-0.5 w-full rounded border-gray-300 shadow-sm sm:text-sm" id="is_featured" name="is_featured">
-                                <option value="Yes">Oui</option>
-                                <option value="No">Non</option>
-                            </select>
-                        </div>
-
-                        <div class="mb-3">
-                            <div class="mb-3 card rounded-1">
-                                <div class="card-body">
-                                    <div class="mb-3">
-                                        <h2 class="mb-3 h4">Produits associés</h2>
-                                        <select multiple class="related-product w-full" name="related_products[]" id="related_products">
-
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="mb-3">
+                        <label for="is_featured" class="form-label">en vedette</label>
+                        <select class="mt-0.5 w-full rounded border-gray-300 shadow-sm sm:text-sm" id="is_featured" name="is_featured">
+                            <option value="Yes">Oui</option>
+                            <option value="No">Non</option>
+                        </select>
+                    </div>
                 </div>
 
             </div>
