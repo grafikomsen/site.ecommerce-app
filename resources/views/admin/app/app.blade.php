@@ -12,11 +12,11 @@
         <link rel="stylesheet" href="{{ asset('frontend-assets/fontawesome/css/all.min.css') }}" />
     </head>
     <body class="font-poppins">
-        <div class="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8">
+        <div class="grid grid-cols-1 gap-4 lg:grid-cols-[230px_1fr]">
             <div class="bg-gray-300">
                 @include('admin.app.sideBar')
             </div>
-            <div class="lg:col-span-2">
+            <div class="bg-gray-300 px-5">
                 @include('admin.app.topBar')
                 @yield('content')
             </div>

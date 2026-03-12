@@ -1,56 +1,42 @@
 @extends('admin.app.app')
 @section('content')
 
-    <div class="bg-gray-100 p-4 m-4 rounded-sm shadow-md">
-        <div class="flex items-center justify-between py-3">
-            <div class="">
-                <h4 class="m-0 fs-18 fw-semibold">Création de la marque</h4>
-            </div>
+    <div class="overflow-x-auto bg-gray-100 p-4 m-4 rounded-md shadow-md">
+        <nav aria-label="Breadcrumb">
+            <ol class="flex items-center justify-end gap-1 text-sm text-gray-700">
+                <li>
+                    <a href="{{ route('admin.dashboard') }}" class="block transition-colors hover:text-gray-900"> Tableau de bord </a>
+                </li>
 
-            <nav aria-label="Breadcrumb">
-                <ol class="flex items-center gap-1 text-sm text-gray-700">
-                    <li>
-                        <a href="{{ route('admin.dashboard') }}" class="block transition-colors hover:text-gray-900"> Dashboard </a>
-                    </li>
+                <li class="rtl:rotate-180">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                </li>
 
-                    <li class="rtl:rotate-180">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
-                        </svg>
-                    </li>
+                <li>
+                    <a href="{{ route('admin.brand') }}" class="block transition-colors hover:text-gray-900"> Liste des marques </a>
+                </li>
 
-                    <li>
-                        <a href="{{ route('admin.brand') }}" class="block transition-colors hover:text-gray-900"> Brand </a>
-                    </li>
+                <li class="rtl:rotate-180">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                </li>
 
-                    <li class="rtl:rotate-180">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
-                        </svg>
-                    </li>
+                <li>
+                    <a class="block transition-colors hover:text-gray-900"> Creer une marque </a>
+                </li>
+            </ol>
+        </nav>
+    </div>
 
-                    <li>
-                        Création de la marque
-                    </li>
-                </ol>
-            </nav>
-        </div>
-
+    <div class="bg-gray-100 p-4 m-4 rounded-md shadow-md">
+        
         <!-- Form Validation -->
-        <div class="pt-5">
-            <!-- stard card header -->
-            <div class="flex items-center justify-between py-8">
-                <div class="">
-                    <h5 class="mb-0 card-title">Browser Defaults</h5>
-                </div>
-                <div class="">
-                    <a class=" bg-orange-500 text-orange-50 hover:bg-orange-600 px-3 py-2 rounded-sm" href="{{ route('admin.brand') }}">Retour</a>
-                </div>
-            </div>
-            <!-- end card header -->
-
+        <div>
             <!-- start card-body -->
-            <div class="">
+            <div>
                 <form name="brandForm" id="brandForm">
 
                     <div class="py-2">

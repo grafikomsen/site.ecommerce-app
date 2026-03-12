@@ -1,13 +1,23 @@
 @if (Session::has('error'))
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <strong>ERROR!</strong> {{ Session::get('error') }}.
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <div role="alert" class="border-2 bg-red-100 p-4 my-8 text-red-900 shadow-sm">
+        <div class="flex items-start gap-3">
+            <i class="fa fa-check-circle text-green-500"></i>
+
+            <strong class="block flex-1 leading-tight font-semibold">
+                <strong>ERROR!</strong> {{ Session::get('error') }}.
+            </strong>
+        </div>
     </div>
 @endif
 
 @if (Session::has('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>Succés!</strong> {{ Session::get('success') }}.
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <div role="alert" class="border-2 bg-green-100 p-4 my-8 text-green-900 shadow-sm">
+        <div class="flex items-start gap-3">
+            <i class="fa fa-check-circle text-green-500"></i>
+
+            <strong class="block flex-1 leading-tight font-semibold">
+            {{ Session::get('success') }}.
+            </strong>
+        </div>
     </div>
 @endif

@@ -1,11 +1,29 @@
 @extends('admin.app.app')
 @section('content')
 
-    <div class="overflow-x-auto bg-gray-100 p-4 m-4 rounded-sm shadow-md">
+    <div class="overflow-x-auto bg-gray-100 p-4 m-4 rounded-md shadow-md">
+        <nav aria-label="Breadcrumb">
+            <ol class="flex items-center justify-end gap-1 text-sm text-gray-700">
+                <li>
+                    <a href="{{ route('admin.dashboard') }}" class="block transition-colors hover:text-gray-900"> Tableau de bord </a>
+                </li>
 
-        <div class="text-center col-md-12">
-            @include('admin.app.message')
-        </div>
+                <li class="rtl:rotate-180">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                </li>
+
+                <li>
+                    <a href="{{ route('admin.brand') }}" class="block transition-colors hover:text-gray-900"> Liste des marques </a>
+                </li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="overflow-x-auto bg-gray-100 p-4 m-4 rounded-md shadow-md">
+
+        @include('admin.app.message')
 
         <div class="flex-col">
             <h5 class="mb-3 card-title">Brand</h5>
@@ -26,12 +44,12 @@
         <table class="min-w-full my-8 divide-y-2 divide-gray-200 dark:divide-gray-700">
             <thead class="ltr:text-left rtl:text-right">
                 <tr class="text-gray-600">
-                    <th class="px-3 py-2 whitespace-nowrap">N°</th>
-                    <th class="px-3 py-2 whitespace-nowrap">Name</th>
-                    <th class="px-3 py-2 whitespace-nowrap">Slug</th>
-                    <th class="px-3 py-2 whitespace-nowrap">Statut</th>
-                    <th class="px-3 py-2 whitespace-nowrap">Started date</th>
-                    <th class="px-3 py-2 whitespace-nowrap">Action</th>
+                    <th class="px-3 text-start py-2 whitespace-nowrap">N°</th>
+                    <th class="px-3 text-start py-2 whitespace-nowrap">Nom</th>
+                    <th class="px-3 text-start py-2 whitespace-nowrap">Slug</th>
+                    <th class="px-3 text-start py-2 whitespace-nowrap">Statut</th>
+                    <th class="px-3 text-start py-2 whitespace-nowrap">Date de création</th>
+                    <th class="px-3 text-start py-2 whitespace-nowrap">Action</th>
                 </tr>
             </thead>
 
@@ -41,12 +59,12 @@
                         <tr class="text-gray-600">
                             <td class="px-3 py-2 whitespace-nowrap">{{ $brand->id }}</td>
                             <td class="px-3 py-2 whitespace-nowrap">{{ $brand->name }}</td>
-                            <td class="px-3 py-2 whitespace-nowrap">{{ $brand->slug }}</td>
+                            <td class="px-3 py-2 whitespace-nowrap text-sm">{{ $brand->slug }}</td>
                             <td class="px-3 py-2 whitespace-nowrap">
                                 @if ($brand->status)
-                                    <a class="btn btn-info btn-sm">Oui</a>
+                                     <i class="fa fa-check-circle text-green-500"></i>
                                 @else
-                                    <a class="btn btn-danger btn-sm">Non</a>
+                                    <i class="fa-solid fa-circle-xmark text-red-500"></i>
                                 @endif
                             </td>
                             <td class="px-3 py-2 whitespace-nowrap">{{ $brand->created_at }}</td>

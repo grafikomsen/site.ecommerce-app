@@ -1,46 +1,42 @@
 @extends('admin.app.app')
 @section('content')
 
-    <div class="bg-gray-100 p-4 m-4 rounded-sm shadow-md">
-        <div class="flex items-center justify-between py-3">
-            <div class="">
-                <h4 class="m-0 fs-18 fw-semibold">Création de la catégorie</h4>
-            </div>
+    <div class="overflow-x-auto bg-gray-100 p-4 m-4 rounded-md shadow-md">
+        <nav aria-label="Breadcrumb">
+            <ol class="flex items-center justify-end gap-1 text-sm text-gray-700">
+                <li>
+                    <a href="{{ route('admin.dashboard') }}" class="block transition-colors hover:text-gray-900"> Tableau de bord </a>
+                </li>
 
-            <nav aria-label="Breadcrumb">
-                <ol class="flex items-center gap-1 text-sm text-gray-700">
-                    <li>
-                        <a href="{{ route('admin.dashboard') }}" class="block transition-colors hover:text-gray-900"> Dashboard </a>
-                    </li>
-
-                    <li class="rtl:rotate-180">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
-                        </svg>
-                    </li>
-
-                    <li>
-                        <a href="{{ route("admin.subCategorie") }}" class="block transition-colors hover:text-gray-900"> Sous catégorie </a>
-                    </li>
-
-                    <li class="rtl:rotate-180">
+                <li class="rtl:rotate-180">
                     <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
                     </svg>
-                    </li>
+                </li>
 
-                    <li>
-                        Création de la sous catégorie
-                    </li>
-                </ol>
-            </nav>
-        </div>
+                <li>
+                    <a href="{{ route('admin.product') }}" class="block transition-colors hover:text-gray-900"> Liste des produits </a>
+                </li>
 
+                <li class="rtl:rotate-180">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                </li>
+
+                <li>
+                    <a class="block transition-colors hover:text-gray-900"> Creer un produit </a>
+                </li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="bg-gray-100 p-4 m-4 rounded-md shadow-md">
 
         <form method="POST" name="createProdForm" id="createProdForm">
 
             <div class="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8 bg-gray-100">
-                <div class="p-4 rounded bg-gray-300 lg:col-span-2">
+                <div class="p-4 rounded lg:col-span-2">
 
                     <div class="col-md-6">
                         <div class="mb-3">
@@ -153,7 +149,7 @@
                     </div>
                 </div>
 
-                <div class="p-4 rounded bg-gray-300">
+                <div class="p-4 rounded">
                     <div class="mb-3">
                         <label for="status" class="form-label">Statut</label>
                         <select class="mt-0.5 w-full rounded border-gray-300 shadow-sm sm:text-sm" id="status" name="status">

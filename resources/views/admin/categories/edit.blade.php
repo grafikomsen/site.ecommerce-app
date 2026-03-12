@@ -1,15 +1,11 @@
 @extends('admin.app.app')
 @section('content')
-<div class="bg-gray-100 p-4 m-4 rounded-sm shadow-md">
-    <div class="flex items-center justify-between py-3">
-        <div class="">
-            <h4 class="m-0 fs-18 fw-semibold">Modification de la catégorie</h4>
-        </div>
 
+    <div class="overflow-x-auto bg-gray-100 p-4 m-4 rounded-md shadow-md">
         <nav aria-label="Breadcrumb">
-            <ol class="flex items-center gap-1 text-sm text-gray-700">
+            <ol class="flex items-center justify-end gap-1 text-sm text-gray-700">
                 <li>
-                    <a href="{{ route('admin.dashboard') }}" class="block transition-colors hover:text-gray-900"> Dashboard </a>
+                    <a href="{{ route('admin.dashboard') }}" class="block transition-colors hover:text-gray-900"> Tableau de bord </a>
                 </li>
 
                 <li class="rtl:rotate-180">
@@ -19,7 +15,7 @@
                 </li>
 
                 <li>
-                    <a href="{{ route('admin.categorie') }}" class="block transition-colors hover:text-gray-900"> Catégorie </a>
+                    <a href="{{ route('admin.categorie') }}" class="block transition-colors hover:text-gray-900"> Liste des catégories </a>
                 </li>
 
                 <li class="rtl:rotate-180">
@@ -29,78 +25,70 @@
                 </li>
 
                 <li>
-                    Modification de la catégorie
+                    <a class="block transition-colors hover:text-gray-900"> Modifier une catégorie </a>
                 </li>
             </ol>
         </nav>
     </div>
 
-    <!-- Form Validation -->
-    <div class="pt-5">
-        <!-- stard card header -->
-        <div class="flex items-center justify-between py-8">
-            <div class="">
-                <h5 class="mb-0 card-title">Browser Defaults</h5>
-            </div>
-            <div class="">
-                <a class=" bg-orange-500 text-orange-50 hover:bg-orange-600 px-3 py-2 rounded-sm" href="{{ route('admin.categorie') }}">Retour</a>
-            </div>
-        </div>
-        <!-- end card header -->
+    <div class="bg-gray-100 p-4 m-4 rounded-md shadow-md">
 
-        <!-- start card-body -->
-        <div class="">
-            <form name="editCategoryForm" id="editCategoryForm">
+        <!-- Form Validation -->
+        <div>
 
-                <div class="py-2">
-                    <label for="name" class="text-sm font-medium text-gray-700">Category</label>
-                    <input type="text" class="mt-0.5 w-full rounded border-gray-300 shadow-sm sm:text-sm" id="name" name="name" value="{{ $category->name }}" placeholder="Nom de la catégorie">
-                    <p></p>
-                </div>
-                <div class="py-2">
-                    <label for="slug" class="text-sm font-medium text-gray-700">Slug</label>
-                    <input type="text" class="mt-0.5 w-full rounded border-gray-300 shadow-sm sm:text-sm" id="slug" name="slug" value="{{ $category->slug }}" placeholder="Lien de la catégorie">
-                    <p></p>
-                </div>
+            <!-- start card-body -->
+            <div>
+                <form name="editCategoryForm" id="editCategoryForm">
 
-
-                <div class="mt-4">
-                    <label for="image">Image</label>
-                    <input type="hidden" id="image_id" name="image_id" value="">
-                    <div id="image" class="dropzone dz-clickable">
-                        <div class="dz-message needsclick">
-                            <br>Drop files here or click to upload.<br><br>
-                        </div>
+                    <div class="py-2">
+                        <label for="name" class="text-sm font-medium text-gray-700">Category</label>
+                        <input type="text" class="mt-0.5 w-full rounded border-gray-300 shadow-sm sm:text-sm" id="name" name="name" value="{{ $category->name }}" placeholder="Nom de la catégorie">
+                        <p></p>
                     </div>
-                    @if (!empty($category->image))
-                        <div>
-                            <img src="{{ asset('uploads/categories/'.$category->image) }}" class="mt-2 border-2 shadow-md p-2" width="100" height="100" alt="$category->name">
-                        </div>
-                    @endif
-                </div>
+                    <div class="py-2">
+                        <label for="slug" class="text-sm font-medium text-gray-700">Slug</label>
+                        <input type="text" class="mt-0.5 w-full rounded border-gray-300 shadow-sm sm:text-sm" id="slug" name="slug" value="{{ $category->slug }}" placeholder="Lien de la catégorie">
+                        <p></p>
+                    </div>
 
-                <div class="mt-4">
-                    <label for="showHome" class="text-sm font-medium text-gray-700">Affichage</label>
-                    <select class="mt-0.5 w-full rounded border-gray-300 shadow-sm sm:text-sm" id="showHome" name="showHome">
-                        <option {{ ($category->showHome == 'Oui') ? 'selected' : '' }} value="Oui">Oui</option>
-                        <option {{ ($category->showHome == 'Non') ? 'selected' : '' }} value="Non">Non</option>
-                    </select>
-                </div>
-                <div class="mt-4">
-                    <label for="status" class="text-sm font-medium text-gray-700">Statut</label>
-                    <select class="mt-0.5 w-full rounded border-gray-300 shadow-sm sm:text-sm" id="status" name="status">
-                        <option {{ ($category->status == 1) ? 'selected' : '' }} value="1">Activé</option>
-                        <option {{ ($category->status == 0) ? 'selected' : '' }} value="0">Désactivé</option>
-                    </select>
-                </div>
-                <div class="mt-4 rounded-sm">
-                    <button class="bg-orange-500 text-white px-3 py-2 hover:bg-orange-600" type="submit">Sauvegardez</button>
-                </div>
-            </form>
+
+                    <div class="mt-4">
+                        <label for="image">Image</label>
+                        <input type="hidden" id="image_id" name="image_id" value="">
+                        <div id="image" class="dropzone dz-clickable">
+                            <div class="dz-message needsclick">
+                                <br>Drop files here or click to upload.<br><br>
+                            </div>
+                        </div>
+                        @if (!empty($category->image))
+                            <div>
+                                <img src="{{ asset('uploads/categories/'.$category->image) }}" class="mt-2 border-2 shadow-md p-2" width="100" height="100" alt="$category->name">
+                            </div>
+                        @endif
+                    </div>
+
+                    <div class="mt-4">
+                        <label for="showHome" class="text-sm font-medium text-gray-700">Affichage</label>
+                        <select class="mt-0.5 w-full rounded border-gray-300 shadow-sm sm:text-sm" id="showHome" name="showHome">
+                            <option {{ ($category->showHome == 'Oui') ? 'selected' : '' }} value="Oui">Oui</option>
+                            <option {{ ($category->showHome == 'Non') ? 'selected' : '' }} value="Non">Non</option>
+                        </select>
+                    </div>
+                    <div class="mt-4">
+                        <label for="status" class="text-sm font-medium text-gray-700">Statut</label>
+                        <select class="mt-0.5 w-full rounded border-gray-300 shadow-sm sm:text-sm" id="status" name="status">
+                            <option {{ ($category->status == 1) ? 'selected' : '' }} value="1">Activé</option>
+                            <option {{ ($category->status == 0) ? 'selected' : '' }} value="0">Désactivé</option>
+                        </select>
+                    </div>
+                    <div class="mt-4 rounded-sm">
+                        <button class="bg-orange-500 text-white px-3 py-2 hover:bg-orange-600" type="submit">Sauvegardez</button>
+                    </div>
+                </form>
+            </div>
+            <!-- end card-body -->
         </div>
-        <!-- end card-body -->
     </div>
-</div>
 
 @endsection
 @section('backendJs')

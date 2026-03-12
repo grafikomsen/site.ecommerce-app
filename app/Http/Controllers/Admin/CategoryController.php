@@ -20,7 +20,7 @@ class CategoryController extends Controller
             $categories = $categories->where('name','like','%'. $request->get('keyword') .'%');
         }
 
-        $categories = $categories->paginate(5);
+        $categories = $categories->paginate(10);
         Session::put('page','categorie');
         return view('admin.categories.categorie', compact('categories'));
     }
