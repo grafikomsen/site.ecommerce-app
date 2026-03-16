@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\ProductSubCategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\TempImagesController;
 use App\Http\Controllers\Front\HomeController;
+use App\Http\Controllers\Front\ShopController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\IsUser;
@@ -18,6 +19,7 @@ use Illuminate\Support\Str;
 
 // FRONTEND
 Route::get('/', [HomeController::class, 'home'])->name('home');
+Route::get('/shop/{categorySlug?}/{subCategorySlug?}', [ShopController::class, 'shop'])->name('shop');
 
 // ACCOUNT.
 Route::get('/dashboard', function () {

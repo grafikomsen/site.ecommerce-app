@@ -14,7 +14,7 @@
                 @if(getCategories()->isNotEmpty())
                     @foreach(getCategories() as $category)
                         <div class="bg-white p-4">
-                            <a href="">
+                            <a href="{{ route('shop',$category->slug) }}">
                                 <h3 class="text-xl">{{ $category->name }}</h3>
                                 @if($category->image != "")
                                     <img class="w-[300px]" src="{{ asset('uploads/categories/'.$category->image) }}" alt="">
