@@ -14,7 +14,7 @@ class ShopController extends Controller
 
         $categorieSelected      = '';
         $subCategorieSelected   = '';
-        $brandArray             = [];
+        $brandsArray             = [];
 
         $categories = Category::orderBy('name','ASC')->with('sub_categories')->where('status',1)->get();
         $brands     = Brand::orderBy('name','ASC')->where('status',1)->get();
@@ -81,5 +81,21 @@ class ShopController extends Controller
         return view('frontend.shop', compact('categories','products','brands','categorieSelected','subCategorieSelected','brandsArray','priceMin', 'priceMax','sort'));
     }
 
+    public function product($slug){
 
+        $product = Product::where('slug',$slug)->with('product_images')->first();
+        if ($product == null) {
+            # code...
+            abort('404');
+        }
+
+        // Afficher les produits similaires
+        $relatedProducts = [];
+        if ($product->related_products) {
+            # code...
+            $productArray = explode(',',$product->related_products);
+            $relatedProducts = Product::whereIn('id',$productArray)->where('status',1)->get();
+        }
+        return view('frontend.product', compact('product','relatedProducts'));
+    }
 }

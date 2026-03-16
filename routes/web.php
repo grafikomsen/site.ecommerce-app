@@ -20,6 +20,7 @@ use Illuminate\Support\Str;
 // FRONTEND
 Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/shop/{categorySlug?}/{subCategorySlug?}', [ShopController::class, 'shop'])->name('shop');
+Route::get('/product/{slug}', [ShopController::class, 'product'])->name('product');
 
 // ACCOUNT.
 Route::get('/dashboard', function () {
