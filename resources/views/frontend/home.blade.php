@@ -2,7 +2,7 @@
 @section('main')
     <main>
         <section class="hero font-poppins">
-            <div class="bg-[url("{{ asset('frontend-assets/images/banner.jpg') }}")] bg-cover h-100 flex justify-center items-end">
+            <div style="background-image: url('{{ asset('frontend-assets/images/banner.jpg') }}'); background-position: center; height: 60vh" class="flex justify-center items-end">
                 <div class="flex lg:flex-wrap justify-between items-center bg-white px-4 py-2 mb-5">
                     <div><p class="">You are on amazon.com. You can also shop on Amazon India for millions of products with fast local delivery.</p></div>
                     <div><a class="px-3 text-[#007185]" href="">Click here to go to amazon.in</a></div>

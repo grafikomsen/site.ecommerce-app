@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="{{ asset('frontend-assets/fontawesome/css/all.min.css') }}" />
     </head>
     <body class="font-poppins">
-        <header class="bg-[#0F1111]">
+        <header class="fixed top-0 left-0 z-50 w-full bg-[#0F1111]">
             <nav class="px-8 py-2">
                 <div class="hidden lg:flex lg:justify-between lg:items-center text-white font-poppins">
                     <a href="{{ route('home') }}">
@@ -81,7 +81,7 @@
                 </div>
 
                 <ul class="flex items-center font-poppins">
-                    <li class="p-2 border border-transparent hover:border-white">Today's Deals</li>
+                    <li class="p-2 border border-transparent hover:border-white">Todays Deals</li>
                     <li class="p-2 border border-transparent hover:border-white">Customer Service</li>
                     <li class="p-2 border border-transparent hover:border-white">Registry</li>
                     <li class="p-2 border border-transparent hover:border-white">Gift Cards</li>
@@ -89,7 +89,9 @@
                 </ul>
             </div>
         </header>
-        @yield('main')
+        <main class="pt-28">
+            @yield('main')
+        </main>
         <footer class="text-white">
             <div class="footerTopBar bg-[#37475A] text-center py-4">
                 <h5>Retour en haut</h5>
