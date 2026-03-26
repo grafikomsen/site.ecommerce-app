@@ -2,31 +2,30 @@
 @section('content')
 
     <div class="overflow-x-auto bg-gray-100 p-4 m-4 rounded-md shadow-md">
-        <nav aria-label="Breadcrumb">
-            <ol class="flex items-center justify-end gap-1 text-sm text-gray-700">
-                <li>
-                    <a href="{{ route('admin.dashboard') }}" class="block transition-colors hover:text-gray-900"> Tableau de bord </a>
-                </li>
+        <div class="flex items-center gap-4 md:flex-row md:justify-between">
+            <h5 class="mb-3 card-title">Brand</h5>
+            <nav aria-label="Breadcrumb">
+                <ol class="flex items-center justify-end gap-1 text-sm text-gray-700">
+                    <li>
+                        <a href="{{ route('admin.dashboard') }}" class="block transition-colors hover:text-gray-900"> Tableau de bord </a>
+                    </li>
 
-                <li class="rtl:rotate-180">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
-                    </svg>
-                </li>
+                    <li class="rtl:rotate-180">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                    </li>
 
-                <li>
-                    <a href="{{ route('admin.brand') }}" class="block transition-colors hover:text-gray-900"> Liste des marques </a>
-                </li>
-            </ol>
-        </nav>
-    </div>
-
-    <div class="overflow-x-auto bg-gray-100 p-4 m-4 rounded-md shadow-md">
+                    <li>
+                        <a href="{{ route('admin.brand') }}" class="block transition-colors hover:text-gray-900"> Liste des marques </a>
+                    </li>
+                </ol>
+            </nav>
+        </div>
 
         @include('admin.app.message')
 
         <div class="flex-col">
-            <h5 class="mb-3 card-title">Brand</h5>
             <a href="{{ route('admin.brand.create') }}" class="px-3 py-2 text-white rounded-sm bg-slate-400 hover:bg-slate-500 float-end">Ajoutez une marque</a>
             <form method="GET">
                 <div class="flex lg:flex-row">

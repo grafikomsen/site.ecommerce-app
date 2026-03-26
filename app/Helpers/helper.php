@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Category;
+use App\Models\ProductImage;
 
     function getCategories(){
 
@@ -9,4 +10,8 @@ use App\Models\Category;
                 ->where('showHome','Oui')
                 ->where('status','1')
                 ->get();
+    }
+
+    function getProductImage($productId){
+        return ProductImage::where('product_id',$productId)->first();
     }

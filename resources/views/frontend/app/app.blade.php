@@ -23,12 +23,16 @@
                         <select class="text-xs bg-gray-500 rounded-l-sm px-2 py-2 border-transparent">
                             <option> Catégories</option>
                             @if(getCategories()->isNotEmpty())
-                                @foreach(getCategories() as $getCategory)
-                                    <option >{{ $getCategory->name }}</option>
+                                @foreach(getCategories() as $category)
+                                    <option >
+                                        <a href="{{ route('shop',$category->slug) }}">
+                                            {{ $category->name }}
+                                        </a>
+                                    </option>
                                 @endforeach
                             @endif
                         </select>
-                        <input type="text" class=" bg-gray-200 py-2 px-2 text-sm w-[350px] outline-none text-black" placeholder="Recherche ici...">
+                        <input type="text" class=" bg-gray-200 py-2 px-2 text-sm w-[350px] outline-none text-black focus:outline-none" placeholder="Recherche ici...">
                         <button type="submit" class="bg-orange-600 py-2 px-3 rounded-r-sm"><i class="fa-solid text-md fa-magnifying-glass"></i></button>
                     </form>
 
@@ -89,7 +93,7 @@
                 </ul>
             </div>
         </header>
-        <main class="pt-28">
+        <main>
             @yield('main')
         </main>
         <footer class="text-white">
@@ -100,16 +104,16 @@
                 <div>
                     <h5 class="text-lg font-semibold">Retour en haut pour mieux nous connaître</h5>
                     <ul class="flex-column mt-3">
-                        <li><a class="py-4" href="">À propos d'Amazon</a></li>
+                        <li><a class="py-4" href="">À propos Amazon</a></li>
                         <li><a class="py-4" href="">Carrières</a></li>
                         <li><a class="py-4" href="">Durabilité</a></li>
                         <li><a class="py-4" href="">Amazon Science</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h5 class="text-lg font-semibold">Gagnez de l'argent</h5>
+                    <h5 class="text-lg font-semibold">Gagnez de argent</h5>
                     <ul class="flex-column mt-3">
-                        <li><a class="py-4" href="">À propos d'Amazon</a></li>
+                        <li><a class="py-4" href="">À propos Amazon</a></li>
                         <li><a class="py-4" href="">Carrières</a></li>
                         <li><a class="py-4" href="">Durabilité</a></li>
                         <li><a class="py-4" href="">Amazon Science</a></li>
@@ -118,16 +122,16 @@
                 <div>
                     <h5 class="text-lg font-semibold">Moyens de paiement Amazon</h5>
                     <ul class="flex-column mt-3">
-                        <li><a class="py-4" href="">À propos d'Amazon</a></li>
+                        <li><a class="py-4" href="">À propos Amazon</a></li>
                         <li><a class="py-4" href="">Carrières</a></li>
                         <li><a class="py-4" href="">Durabilité</a></li>
                         <li><a class="py-4" href="">Amazon Science</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h5 class="text-lg font-semibold">Besoin d'aide ?</h5>
+                    <h5 class="text-lg font-semibold">Besoin aide ?</h5>
                     <ul class="flex-column mt-3">
-                        <li><a class="py-4" href="">À propos d'Amazon</a></li>
+                        <li><a class="py-4" href="">À propos Amazon</a></li>
                         <li><a class="py-4" href="">Carrières</a></li>
                         <li><a class="py-4" href="">Durabilité</a></li>
                         <li><a class="py-4" href="">Amazon Science</a></li>
