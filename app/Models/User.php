@@ -21,6 +21,21 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'status',
+        'avatar',
+        'phone',
+        'address',
+        'city',
+        'country',
+        'google_id',
+        'facebook_id',
+        'social_data',
+        'social_registered_at',
+        'email_verified_at',
+        'vendor_verified_at',
+        //'store_name',
+        //'store_description',
     ];
 
     /**
@@ -42,6 +57,8 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
+            'social_data' => 'array',
+            'social_registered_at' => 'datetime',
             'password' => 'hashed',
         ];
     }

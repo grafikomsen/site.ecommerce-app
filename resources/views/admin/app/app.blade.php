@@ -9,7 +9,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <link rel="stylesheet" type="text/css" href="{{ asset('admin/assets/select2/css/select2.min.css') }}" />
         <link rel="stylesheet" type="text/css" href="{{ asset('admin/assets/dropzone/min/dropzone.min.css') }}" />
-        <link rel="stylesheet" href="{{ asset('frontend-assets/fontawesome/css/all.min.css') }}" />
+        <link rel="stylesheet" href="{{ asset('admin/assets/fontawesome/css/all.min.css') }}" />
     </head>
     <body class="font-poppins">
         <div class="grid grid-cols-1 gap-4 lg:grid-cols-[230px_1fr]">

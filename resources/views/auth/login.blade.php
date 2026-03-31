@@ -5,14 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{{ config('app.name', 'Connexion Amazon') }}</title>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-        <link rel="stylesheet" href="{{ asset('frontend-assets/fontawesome/css/all.min.css') }}" />
+        <link rel="stylesheet" href="{{ asset('frontend/assets/fontawesome/css/all.min.css') }}" />
     </head>
     <body class="bg-gray-300">
         <div  class="mx-auto my-12 max-w-sm border-2 p-8 rounded-md shadow-md bg-[#222F3D]">
             <a href="{{ route('home') }}" class="flex justify-center ">
-                <img class="w-[150px]" src="{{ asset('frontend-assets/images/amazon_logo.png') }}" alt="Logo">
+                <img class="w-[150px]" src="{{ asset('frontend/assets/images/amazon_logo.png') }}" alt="Logo">
             </a>
-            <h3 class="py-2 text-lg text-white">Se connecter</h3>
             <form action="{{ route('login') }}" method="POST">
                 @csrf
                 <div class="grid grid-cols-1 gap-x-8 gap-y-4">
@@ -57,9 +56,15 @@
                         </div>
                     </div>
                     <button class="p-2 text-white bg-orange-500 rounded-md" type="submit">Se connecter</button>
-                    <div class="flex items-center justify-center gap-2 p-2 border border-orange-500 rounded-md">
-                        <img class="w-6" src="{{ asset('frontend-assets/images/google.svg') }}" alt="">
-                        <a class="p-2 text-xs text-center text-orange-500 rounded-md" href="" >Se connecter avec google</a>
+                    <h5 class="border-b text-white text-sm text-center py-1">Se connecter avec</h5>
+                    <div class="flex justify-center items-center gap-4">
+                        <a class="text-xs" href="{{ route('social.redirect', 'google') }}" >
+                            <img class="w-6" src="{{ asset('admin/assets/images/google.svg') }}" alt="">
+                        </a>
+
+                        <a class="text-xs" href="{{ route('social.redirect', 'facebook') }}" >
+                            <img class="w-6" src="{{ asset('admin/assets/images/facebook.svg') }}" alt="">
+                        </a>
                     </div>
                     <a href="{{ route('register') }}" class="text-xs text-white text-end">Nouveau chez Amazon ? créer votre compte Amazon</a>
                 </div>

@@ -15,11 +15,23 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->enum('role',['admin','vendor','user'])->default('user');
+            // Colonnes pour l'authentification sociale
+            $table->string('google_id')->nullable()->unique();
+            $table->string('facebook_id')->nullable()->unique();
+            $table->json('social_data')->nullable();
+            $table->timestamp('social_registered_at')->nullable();
+            // Informations supplémentaires
+            $table->string('avatar')->nullable();
             $table->string('phone')->nullable();
-            $table->enum('role',['admin','user'])->default('user');
+            $table->text('address')->nullable();
+            $table->string('city')->nullable();
+            $table->string('country')->nullable();
+            $table->enum('status',['active','inactive','banned'])->default('active');
+            //$table->string('store_name')->nullable();
+            //$table->text('store_description')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->integer('status')->default(1);
             $table->rememberToken();
             $table->timestamps();
         });
