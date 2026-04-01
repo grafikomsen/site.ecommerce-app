@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>{{ config('app.name', 'eshop') }}</title>
+        {!! SEO::generate() !!}
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <link rel="stylesheet" href="{{ asset('frontend/assets/fontawesome/css/all.min.css') }}" />
     </head>

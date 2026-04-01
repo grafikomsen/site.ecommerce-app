@@ -9,8 +9,20 @@ class Category extends Model
 {
     use HasFactory;
 
-    public function sub_categories(){
+    protected $guarded = [];
 
+    public function sub_categories()
+    {
         return $this->hasMany(SubCategory::class);
+    }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+
+    public function getNameAttribute()
+    {
+        return $this->attributes['name_fr'] ?? null;
     }
 }

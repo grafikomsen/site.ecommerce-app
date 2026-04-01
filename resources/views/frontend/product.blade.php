@@ -7,7 +7,7 @@
                 @if($product->product_images)
                     @foreach($product->product_images as $key => $productImage)
                         <div class="{{ ($key == 0) ? 'active' : '' }}">
-                            <img class="h-full w-full object-cover rounded border" src="{{ asset('uploads/product/'.$productImage->image) }}" alt="{{ $productImage->title }}">
+                            <img class="h-full w-full object-cover rounded border" src="{{ $productImage->image_large_url ?? $productImage->image_url }}" alt="{{ $productImage->title }}">
                         </div>
                     @endforeach
                 @endif

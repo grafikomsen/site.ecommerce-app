@@ -10,9 +10,12 @@ use App\Models\ProductImage;
 use App\Models\SubCategory;
 use App\Models\TempImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class ProductController extends Controller
 {
@@ -21,8 +24,10 @@ class ProductController extends Controller
         //$products = Product::latest('id')->with('product_images');
         $products = Product::latest('id');
         if ($request->get('keyword') != "") {
-            # code...
-            $products = $products->where('title','like','%'.$request->keyword.'%');
+            $products = $products->where(function ($query) use ($request) {
+                $query->where('title_fr','like','%'.$request->keyword.'%')
+                      ->orWhere('title_en','like','%'.$request->keyword.'%');
+            });
         }
 
         $products = $products->paginate(10);
@@ -32,13 +37,17 @@ class ProductController extends Controller
 
     public function create(){
 
-        $brands = Brand::orderBy('name','ASC')->get();
-        $categories = Category::orderBy('name','ASC')->get();
-        $subCategories = SubCategory::orderBy('name','ASC')->get();
+        $brands = Brand::orderBy('name_fr','ASC')->get();
+        $categories = Category::orderBy('name_fr','ASC')->get();
+        $subCategories = SubCategory::orderBy('name_fr','ASC')->get();
         return view('admin.products.create', compact('categories','brands','subCategories'));
     }
 
     public function store(Request $request){
+
+        if (empty($request->slug) && !empty($request->title)) {
+            $request->merge(['slug' => Str::slug($request->title)]);
+        }
 
         $rules = [
             'title'         => 'required',
@@ -68,25 +77,47 @@ class ProductController extends Controller
         $Validator = Validator::make($request->all(), $rules, $messages);
 
         if ($Validator->passes()) {
-            # code...
             $product = new Product();
-            $product->title             = $request->title;
-            $product->slug              = $request->slug;
-            $product->description       = $request->description;
-            $product->short_description = $request->short_description;
-            $product->shipping_returns  = $request->shipping_returns;
-            $product->price             = $request->price;
-            $product->compare_price     = $request->compare_price;
-            $product->sku               = $request->sku;
-            $product->barcode           = $request->barcode;
-            $product->track_qty         = $request->track_qty;
-            $product->qty               = $request->qty;
-            $product->category_id       = $request->category;
-            $product->sub_category_id   = $request->sub_category;
-            $product->brand_id          = $request->brand;
-            $product->status            = $request->status;
-            $product->is_featured       = $request->is_featured;
-            $product->related_products  = (!empty($request->related_products)) ? implode(',',$request->related_products) : '';
+            $product->title_fr             = $request->title;
+            $product->title_en             = $request->title;
+            $product->slug                 = $request->slug;
+            $product->description_fr       = $request->description;
+            $product->description_en       = $request->description;
+            $product->short_description_fr = $request->short_description;
+            $product->short_description_en = $request->short_description;
+            $product->shipping_returns_fr  = $request->shipping_returns;
+            $product->shipping_returns_en  = $request->shipping_returns;
+            $product->price                = $request->price;
+            $product->compare_price        = $request->compare_price;
+            $product->cost_price           = $request->cost_price;
+            $product->sku                  = $request->sku;
+            $product->barcode              = $request->barcode;
+            $product->weight               = $request->weight;
+            $product->length               = $request->length;
+            $product->width                = $request->width;
+            $product->height               = $request->height;
+            $product->low_stock_threshold  = $request->low_stock_threshold;
+            $product->stock_status         = $request->stock_status ?? 'in_stock';
+            $product->draft                = $request->draft ?? 'pending';
+            $product->visible              = $request->visible ?? 'visible';
+            $product->has_variations       = ($request->has_variations == 'Yes');
+            $product->is_on_sale           = ($request->is_on_sale == 'Yes');
+            $product->is_new               = ($request->is_new == 'Yes');
+            $product->track_qty            = $request->track_qty;
+            $product->qty                  = $request->qty;
+            $product->meta_title_fr        = $request->meta_title;
+            $product->meta_title_en        = $request->meta_title;
+            $product->meta_description_fr  = $request->meta_description;
+            $product->meta_description_en  = $request->meta_description;
+            $product->meta_keywords_fr     = $request->meta_keywords;
+            $product->meta_keywords_en     = $request->meta_keywords;
+            $product->vendor_id            = Auth::id();
+            $product->category_id          = $request->category;
+            $product->sub_category_id      = $request->sub_category;
+            $product->brand_id             = $request->brand;
+            $product->status               = $request->status;
+            $product->is_featured          = $request->is_featured;
+            $product->related_products     = (!empty($request->related_products)) ? implode(',',$request->related_products) : '';
             $product->save();
 
             if (!empty($request->image_array)) {
@@ -99,17 +130,33 @@ class ProductController extends Controller
 
                     $productImage = new ProductImage();
                     $productImage->product_id = $product->id;
-                    $productImage->image = 'NULL';
+                    $productImage->image_path = null;
                     $productImage->save();
 
                     $imageName = $product->id.'-'.$productImage->id.'-'.time().'.'.$ext;
-                    $productImage->image = $imageName;
+                    $productImage->image_path = $imageName;
                     $productImage->save();
 
-                    // Large Image
-                    $sourcePath = public_path().'/temp/'.$tempImageInfo->name;
-                    $destPath = public_path().'/uploads/product/'.$imageName;
-                    File::copy($sourcePath,$destPath);
+                    $sourcePath = public_path('/temp/'.$tempImageInfo->name);
+                    $sizes = config('image.product_sizes');
+                    $basePath = public_path('uploads/product');
+
+                    File::ensureDirectoryExists($basePath);
+                    foreach ($sizes as $folder => $settings) {
+                        $path = $folder ? public_path('uploads/product/'.$folder) : $basePath;
+                        File::ensureDirectoryExists($path);
+
+                        $image = Image::make($sourcePath);
+                        if ($settings['fit']) {
+                            $image->fit($settings['width'], $settings['height']);
+                        } else {
+                            $image->resize($settings['width'], $settings['height'], function ($constraint) {
+                                $constraint->aspectRatio();
+                                $constraint->upsize();
+                            });
+                        }
+                        $image->save($path.'/'.$imageName);
+                    }
                 }
             }
 
@@ -148,15 +195,18 @@ class ProductController extends Controller
         }
 
         $subCategories = SubCategory::where('category_id',$product->category_id)->get();
-        $brands = Brand::orderBy('name','ASC')->get();
-        $categories = Category::orderBy('name','ASC')->get();
-        $subCategories = SubCategory::orderBy('name','ASC')->get();
-        return view('admin.products.edit', compact('categories','brands','subCategories','product','subCategories','productImages','relatedProducts'));
+        $brands = Brand::orderBy('name_fr','ASC')->get();
+        $categories = Category::orderBy('name_fr','ASC')->get();
+        return view('admin.products.edit', compact('categories','brands','subCategories','product','productImages','relatedProducts'));
     }
 
     public function updated($productId, Request $request){
 
         $product = Product::find($productId);
+
+        if (empty($request->slug) && !empty($request->title)) {
+            $request->merge(['slug' => Str::slug($request->title)]);
+        }
 
         $rules = [
             'title'         => 'required',
@@ -176,24 +226,45 @@ class ProductController extends Controller
         $Validator = Validator::make($request->all(), $rules);
 
         if ($Validator->passes()) {
-            # code...
-            $product->title             = $request->title;
-            $product->slug              = $request->slug;
-            $product->description       = $request->description;
-            $product->short_description = $request->short_description;
-            $product->shipping_returns  = $request->shipping_returns;
-            $product->price             = $request->price;
-            $product->compare_price     = $request->compare_price;
-            $product->sku               = $request->sku;
-            $product->barcode           = $request->barcode;
-            $product->track_qty         = $request->track_qty;
-            $product->qty               = $request->qty;
-            $product->category_id       = $request->category;
-            $product->sub_category_id   = $request->sub_category;
-            $product->brand_id          = $request->brand;
-            $product->status            = $request->status;
-            $product->is_featured       = $request->is_featured;
-            $product->related_products  = (!empty($request->related_products)) ? implode(',',$request->related_products) : '';
+            $product->title_fr             = $request->title;
+            $product->title_en             = $request->title;
+            $product->slug                 = $request->slug;
+            $product->description_fr       = $request->description;
+            $product->description_en       = $request->description;
+            $product->short_description_fr = $request->short_description;
+            $product->short_description_en = $request->short_description;
+            $product->shipping_returns_fr  = $request->shipping_returns;
+            $product->shipping_returns_en  = $request->shipping_returns;
+            $product->price                = $request->price;
+            $product->compare_price        = $request->compare_price;
+            $product->cost_price           = $request->cost_price;
+            $product->sku                  = $request->sku;
+            $product->barcode              = $request->barcode;
+            $product->weight               = $request->weight;
+            $product->length               = $request->length;
+            $product->width                = $request->width;
+            $product->height               = $request->height;
+            $product->low_stock_threshold  = $request->low_stock_threshold;
+            $product->stock_status         = $request->stock_status ?? 'in_stock';
+            $product->draft                = $request->draft ?? 'pending';
+            $product->visible              = $request->visible ?? 'visible';
+            $product->has_variations       = ($request->has_variations == 'Yes');
+            $product->is_on_sale           = ($request->is_on_sale == 'Yes');
+            $product->is_new               = ($request->is_new == 'Yes');
+            $product->track_qty            = $request->track_qty;
+            $product->qty                  = $request->qty;
+            $product->meta_title_fr        = $request->meta_title;
+            $product->meta_title_en        = $request->meta_title;
+            $product->meta_description_fr  = $request->meta_description;
+            $product->meta_description_en  = $request->meta_description;
+            $product->meta_keywords_fr     = $request->meta_keywords;
+            $product->meta_keywords_en     = $request->meta_keywords;
+            $product->category_id          = $request->category;
+            $product->sub_category_id      = $request->sub_category;
+            $product->brand_id             = $request->brand;
+            $product->status               = $request->status;
+            $product->is_featured          = $request->is_featured;
+            $product->related_products     = (!empty($request->related_products)) ? implode(',',$request->related_products) : '';
             $product->save();
 
             Session()->flash('success','Produit mis à jour avec succès');
@@ -223,12 +294,18 @@ class ProductController extends Controller
         }
 
         $productImages = ProductImage::where('product_id',$productId)->get();
-        if (!empty($productImages)) {
-            # code...
+        if ($productImages->isNotEmpty()) {
+            $sizes = array_keys(config('image.product_sizes'));
             foreach($productImages as $productImage){
-                File::delete(public_path('uploads/product/'.$productImage));
+                $deletePaths = [public_path('uploads/product/'.$productImage->image)];
+                foreach ($sizes as $folder) {
+                    if ($folder) {
+                        $deletePaths[] = public_path('uploads/product/'.$folder.'/'.$productImage->image);
+                    }
+                }
+                File::delete($deletePaths);
             }
-            $productImage::where('product_id',$productId);
+            ProductImage::where('product_id',$productId)->delete();
         }
 
         $product->delete();
@@ -244,7 +321,10 @@ class ProductController extends Controller
         $tempProduct = [];
         if ($request->term != "") {
             # code...
-            $products = Product::where('title','like','%'.$request->term.'%')->get();
+            $products = Product::where(function ($query) use ($request) {
+                $query->where('title_fr','like','%'.$request->term.'%')
+                      ->orWhere('title_en','like','%'.$request->term.'%');
+            })->get();
 
             if ($products != null) {
                 # code...

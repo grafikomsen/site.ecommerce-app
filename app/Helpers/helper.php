@@ -5,7 +5,7 @@ use App\Models\ProductImage;
 
     function getCategories(){
 
-        return Category::orderBy('name','ASC')
+        return Category::orderBy('name_fr','ASC')
                 ->with('sub_categories')
                 ->where('showHome','Oui')
                 ->where('status','1')

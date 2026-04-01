@@ -15,13 +15,16 @@ class SubCategoryController extends Controller
 {
     public function subCategorie(Request $request){
 
-        $subCategories = SubCategory::select('sub_categories.*','categories.name as categoryName')
+        $subCategories = SubCategory::select('sub_categories.*','categories.name_fr as categoryName')
                         ->latest('sub_categories.id')
                         ->leftJoin('categories','categories.id','sub_categories.category_id');
         if (!empty($request->get('keyword'))) {
-            # code...
-            $subCategories = $subCategories->where('sub_categories.name','like','%'. $request->get('keyword') .'%');
-            $subCategories = $subCategories->orWhere('categories.name','like','%'. $request->get('keyword') .'%');
+            $subCategories = $subCategories->where(function ($query) use ($request) {
+                $query->where('sub_categories.name_fr','like','%'. $request->get('keyword') .'%')
+                      ->orWhere('sub_categories.name_en','like','%'. $request->get('keyword') .'%')
+                      ->orWhere('categories.name_fr','like','%'. $request->get('keyword') .'%')
+                      ->orWhere('categories.name_en','like','%'. $request->get('keyword') .'%');
+            });
         }
 
         $subCategories = $subCategories->paginate(8);
@@ -31,26 +34,36 @@ class SubCategoryController extends Controller
 
     public function create(){
 
-        $categories = Category::orderBy('name','ASC')->get();
+        $categories = Category::orderBy('name_fr','ASC')->get();
         return view('admin.subcategories.create', compact('categories'));
     }
 
     public function store(Request $request){
         $validator = Validator::make($request->all(),[
-            'name'          => 'required',
-            'slug'          => 'required|unique:sub_categories',
-            'category'      => 'required',
-            'status'        => 'required'
+            'name_fr'   => 'required',
+            'name_en'   => 'required',
+            'slug'      => 'required|unique:sub_categories',
+            'category'  => 'required',
+            'status'    => 'required'
         ]);
 
         if ($validator->passes()) {
             # code...
             $subCategory = new SubCategory();
-            $subCategory->name          = $request->name;
-            $subCategory->slug          = $request->slug;
-            $subCategory->category_id   = $request->category;
-            $subCategory->showHome      = $request->showHome;
-            $subCategory->status        = $request->status;
+            $subCategory->name_fr               = $request->name_fr;
+            $subCategory->name_en               = $request->name_en;
+            $subCategory->slug                  = $request->slug;
+            $subCategory->description_fr        = $request->description_fr;
+            $subCategory->description_en        = $request->description_en;
+            $subCategory->category_id           = $request->category;
+            $subCategory->showHome              = $request->showHome;
+            $subCategory->meta_title_fr         = $request->meta_title_fr;
+            $subCategory->meta_title_en         = $request->meta_title_en;
+            $subCategory->meta_description_fr   = $request->meta_description_fr;
+            $subCategory->meta_description_en   = $request->meta_description_en;
+            $subCategory->meta_keywords_fr      = $request->meta_keywords_fr;
+            $subCategory->meta_keywords_en      = $request->meta_keywords_en;
+            $subCategory->status                = $request->status;
             $subCategory->save();
 
             // Sauvegardez une image
@@ -67,7 +80,6 @@ class SubCategoryController extends Controller
 
                 $subCategory->image = $newImageName;
                 $subCategory->save();
-
             }
 
             Session()->flash('success','Sous-catégorie ajoutée avec succès');
@@ -92,13 +104,13 @@ class SubCategoryController extends Controller
             # code...
             return redirect()->route('admin.subCategorie');
         }
-        $categories = Category::orderBy('name','ASC')->get();
+        $categories = Category::orderBy('name_fr','ASC')->get();
         return view('admin.subcategories.edit', compact('subCategory','categories'));
     }
 
     public function updated($subCategoryId, Request $request){
 
-        $subCategory = subCategory::find($subCategoryId);
+        $subCategory = SubCategory::find($subCategoryId);
         if (empty($subCategory)) {
             # code...
             Session()->flash('error','Enregistrement introuvable');
@@ -109,19 +121,29 @@ class SubCategoryController extends Controller
         }
 
         $validator = Validator::make($request->all(),[
-            'name'          => 'required',
-            'slug'          => 'required|unique:sub_categories,slug,'.$subCategory->id.',id',
-            'category'      => 'required',
-            'status'        => 'required'
+            'name_fr'   => 'required',
+            'name_en'   => 'required',
+            'slug'      => 'required|unique:sub_categories,slug,'.$subCategory->id.',id',
+            'category'  => 'required',
+            'status'    => 'required'
         ]);
 
         if ($validator->passes()) {
             # code...
-            $subCategory->name          = $request->name;
-            $subCategory->slug          = $request->slug;
-            $subCategory->category_id   = $request->category;
-            $subCategory->showHome      = $request->showHome;
-            $subCategory->status        = $request->status;
+            $subCategory->name_fr               = $request->name_fr;
+            $subCategory->name_en               = $request->name_en;
+            $subCategory->slug                  = $request->slug;
+            $subCategory->description_fr        = $request->description_fr;
+            $subCategory->description_en        = $request->description_en;
+            $subCategory->category_id           = $request->category;
+            $subCategory->showHome              = $request->showHome;
+            $subCategory->meta_title_fr         = $request->meta_title_fr;
+            $subCategory->meta_title_en         = $request->meta_title_en;
+            $subCategory->meta_description_fr   = $request->meta_description_fr;
+            $subCategory->meta_description_en   = $request->meta_description_en;
+            $subCategory->meta_keywords_fr      = $request->meta_keywords_fr;
+            $subCategory->meta_keywords_en      = $request->meta_keywords_en;
+            $subCategory->status                = $request->status;
             $subCategory->save();
 
             // Sauvegardez une image
@@ -138,7 +160,6 @@ class SubCategoryController extends Controller
 
                 $subCategory->image = $newImageName;
                 $subCategory->save();
-
             }
 
             Session()->flash('success','Sous-catégorie modifiée avec succès');
@@ -158,22 +179,23 @@ class SubCategoryController extends Controller
 
     public function destroy($subCategoryId){
 
-        $subCategory = Category::find($subCategoryId);
+        $subCategory = SubCategory::find($subCategoryId);
         if (empty($subCategory)) {
-            # code...
-            Session()->flash('error','Catégorie introuvable');
+            Session()->flash('error','Sous-catégorie introuvable');
             return response()->json([
-                'status'    => true,
-                'message'   => 'Catégorie introuvable'
+                'status'    => false,
+                'message'   => 'Sous-catégorie introuvable'
             ]);
         }
 
-        File::delete(public_path().'/uploads/sub-categories/thump/'.$subCategory->id);
-        File::delete(public_path().'/uploads/sub-categories/'.$subCategory->id);
+        if (!empty($subCategory->image)) {
+            File::delete(public_path('uploads/sub-categories/thump/'.$subCategory->image));
+            File::delete(public_path('uploads/sub-categories/'.$subCategory->image));
+        }
 
         $subCategory->delete();
 
-        Session()->flash('success','Suppression de la catégorie réussie');
+        Session()->flash('success','Suppression de la sous-catégorie réussie');
         return response()->json([
             'status'    => true,
             'message'   => 'Suppression de la catégorie réussie'

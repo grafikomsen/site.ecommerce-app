@@ -2,9 +2,28 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class SubCategory extends Model
 {
-    //
+    use HasFactory;
+
+    protected $guarded = [];
+    protected $appends = ['name'];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+
+    public function getNameAttribute()
+    {
+        return $this->attributes['name_fr'] ?? null;
+    }
 }

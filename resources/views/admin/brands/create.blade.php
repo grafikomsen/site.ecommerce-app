@@ -1,80 +1,78 @@
 @extends('admin.app.app')
 @section('content')
 
-    <div class="overflow-x-auto bg-gray-100 p-4 m-4 rounded-md shadow-md">
-        <nav aria-label="Breadcrumb">
-            <ol class="flex items-center justify-end gap-1 text-sm text-gray-700">
-                <li>
-                    <a href="{{ route('admin.dashboard') }}" class="block transition-colors hover:text-gray-900"> Tableau de bord </a>
-                </li>
-
-                <li class="rtl:rotate-180">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
-                    </svg>
-                </li>
-
-                <li>
-                    <a href="{{ route('admin.brand') }}" class="block transition-colors hover:text-gray-900"> Liste des marques </a>
-                </li>
-
-                <li class="rtl:rotate-180">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
-                    </svg>
-                </li>
-
-                <li>
-                    <a class="block transition-colors hover:text-gray-900"> Creer une marque </a>
-                </li>
-            </ol>
-        </nav>
-    </div>
-
     <div class="bg-gray-100 p-4 m-4 rounded-md shadow-md">
-        
-        <!-- Form Validation -->
-        <div>
-            <!-- start card-body -->
-            <div>
-                <form name="brandForm" id="brandForm">
+        <div class="flex items-center gap-4 md:flex-row md:justify-between">
+            <h5 class="mb-3 card-title">Marque</h5>
+            <nav aria-label="Breadcrumb">
+                <ol class="flex items-center justify-end gap-1 text-sm text-gray-700">
+                    <li>
+                        <a href="{{ route('admin.dashboard') }}" class="block transition-colors hover:text-gray-900"> Tableau de bord </a>
+                    </li>
 
-                    <div class="py-2">
-                        <label for="name" class="text-sm font-medium text-gray-700">Brand</label>
-                        <input type="text" class="mt-0.5 w-full rounded border-gray-300 shadow-sm sm:text-sm" id="name" name="name" placeholder="Nom de la marque">
-                        <p></p>
-                    </div>
-                    <div class="py-2">
-                        <label for="slug" class="text-sm font-medium text-gray-700">Slug</label>
-                        <input type="text" class="mt-0.5 w-full rounded border-gray-300 shadow-sm sm:text-sm" id="slug" name="slug" placeholder="Lien de la marque">
-                        <p></p>
-                    </div>
+                    <li class="rtl:rotate-180">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                    </li>
 
-                    <div class="mt-4">
-                        <label for="image">Image</label>
-                        <input type="hidden" id="image_id" name="image_id" value="">
-                        <div id="image" class="dropzone dz-clickable">
-                            <div class="dz-message needsclick">
-                                <br>Drop files here or click to upload.<br><br>
-                            </div>
-                        </div>
-                    </div>
+                    <li>
+                        <a href="{{ route('admin.brand') }}" class="block transition-colors hover:text-gray-900"> Liste des marques </a>
+                    </li>
 
-                    <div class="mt-4">
-                        <label for="status" class="text-sm font-medium text-gray-700">Statut</label>
-                        <select class="mt-0.5 w-full rounded border-gray-300 shadow-sm sm:text-sm" id="status" name="status">
-                            <option value="1">Activé</option>
-                            <option value="0">desactivé</option>
-                        </select>
-                    </div>
-                    <div class="mt-4 rounded-sm">
-                        <button class="bg-orange-500 text-white px-3 py-2 hover:bg-orange-600" type="submit">Sauvegardez</button>
-                    </div>
-                </form>
-            </div>
-            <!-- end card-body -->
+                    <li class="rtl:rotate-180">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                    </li>
+
+                    <li>
+                        <a class="block transition-colors hover:text-gray-900"> Creer une marque </a>
+                    </li>
+                </ol>
+            </nav>
         </div>
-        <!-- end card-->
+        <hr class="py-2">
+
+        <!-- Form Validation -->
+        <form name="brandForm" id="brandForm">
+            @csrf
+
+            <div class="grid grid-cols-2 gap-4">
+                <div class="py-2">
+                    <label for="name" class="text-sm font-medium text-gray-700">Marque</label>
+                    <input type="text" class="mt-0.5 w-full rounded border-gray-300 shadow-sm sm:text-sm" id="name" name="name" placeholder="Nom de la marque">
+                    <p></p>
+                </div>
+                <div class="py-2">
+                    <label for="slug" class="text-sm font-medium text-gray-700">Slug</label>
+                    <input type="text" class="mt-0.5 w-full rounded border-gray-300 shadow-sm sm:text-sm" id="slug" name="slug" placeholder="Lien de la marque">
+                    <p></p>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <label for="image">Image</label>
+                <input type="hidden" id="image_id" name="image_id" value="">
+                <div id="image" class="dropzone dz-clickable">
+                    <div class="dz-message needsclick">
+                        <br>Déposez vos fichiers ici ou cliquez pour les télécharger.<br><br>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <label for="status" class="text-sm font-medium text-gray-700">Statut</label>
+                <select class="mt-0.5 w-full rounded border-gray-300 shadow-sm sm:text-sm" id="status" name="status">
+                    <option value="1">Activé</option>
+                    <option value="0">desactivé</option>
+                </select>
+            </div>
+            <div class="mt-4 rounded-sm">
+                <button class="bg-orange-500 text-white px-3 py-2 hover:bg-orange-600" type="submit">Sauvegardez</button>
+            </div>
+        </form>
+
     </div>
 
 @endsection
@@ -101,7 +99,7 @@
 
                         $('#name')
                             .removeClass('is-invalid')
-                            .sibling('p')
+                            .siblings('p')
                             .removeClass('invalid-feedback')
                             .html('');
 

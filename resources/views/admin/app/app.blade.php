@@ -11,14 +11,24 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('admin/assets/dropzone/min/dropzone.min.css') }}" />
         <link rel="stylesheet" href="{{ asset('admin/assets/fontawesome/css/all.min.css') }}" />
     </head>
-    <body class="font-poppins">
-        <div class="grid grid-cols-1 gap-4 lg:grid-cols-[230px_1fr]">
-            <div class="">
+    <body class="font-poppins h-screen overflow-hidden">
+        <div class="h-screen flex overflow-hidden">
+            <aside class="hidden lg:block w-[230px] h-screen sticky top-0 shrink-0">
                 @include('admin.app.sideBar')
-            </div>
-            <div class="">
-                @include('admin.app.topBar')
-                @yield('content')
+            </aside>
+
+            <div class="flex-1 min-h-0 flex flex-col overflow-hidden">
+                <header class="sticky top-0 z-20">
+                    @include('admin.app.topBar')
+                </header>
+
+                <main class="flex-1 min-h-0 overflow-y-auto">
+                    @yield('content')
+                </main>
+
+                <footer class="sticky bottom-0 z-10">
+                    @include('admin.app.footer')
+                </footer>
             </div>
         </div>
 

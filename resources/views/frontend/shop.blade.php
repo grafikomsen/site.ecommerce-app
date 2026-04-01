@@ -17,8 +17,8 @@
                         @endphp
                         <div class="flex flex-col gap-2">
                             <a href="{{ route('product',$product->slug) }}">
-                                @if (!empty($productImage->image))
-                                    <img  class="h-64 w-full object-cover sm:h-30 lg:h-50" src="{{ asset('uploads/product/'.$productImage->image) }}" alt="{{ $product->title }}">
+                                @if (!empty($productImage->image_url))
+                                    <img  class="h-64 w-full object-cover sm:h-30 lg:h-50" src="{{ $productImage->image_medium_url ?? $productImage->image_url }}" alt="{{ $product->title }}">
                                 @else
                                     <img  class="h-64 w-full object-cover sm:h-30 lg:h-50" src="{{ asset('frontend-assets/images/Ficheproduite.commece.png') }}" alt="{{ $product->title }}">
                                 @endif

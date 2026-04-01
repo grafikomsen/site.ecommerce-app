@@ -16,8 +16,10 @@ class CategoryController extends Controller
 
         $categories = Category::latest();
         if (!empty($request->get('keyword'))) {
-            # code...
-            $categories = $categories->where('name','like','%'. $request->get('keyword') .'%');
+            $categories = $categories->where(function ($query) use ($request) {
+                $query->where('name_fr', 'like', '%'.$request->get('keyword').'%')
+                      ->orWhere('name_en', 'like', '%'.$request->get('keyword').'%');
+            });
         }
 
         $categories = $categories->paginate(10);
@@ -32,15 +34,28 @@ class CategoryController extends Controller
     public function store(Request $request){
 
         $validator = Validator::make($request->all(),[
-            'name'  => 'required',
+            'name_fr'  => 'required',
+            'name_en'  => 'required',
             'slug'  => 'required|unique:categories'
         ]);
 
         if ($validator->passes()) {
             # code...
             $category = new Category();
-            $category->name = $request->name;
+            $category->name_fr = $request->name_fr;
+            $category->name_en = $request->name_en;
             $category->slug = $request->slug;
+            $category->description_fr = $request->description_fr;
+            $category->description_en = $request->description_en;
+            $category->logo = $request->logo;
+            $category->icon = $request->icon;
+            $category->banner = $request->banner;
+            $category->meta_title_fr = $request->meta_title_fr;
+            $category->meta_title_en = $request->meta_title_en;
+            $category->meta_description_fr = $request->meta_description_fr;
+            $category->meta_description_en = $request->meta_description_en;
+            $category->meta_keywords_fr = $request->meta_keywords_fr;
+            $category->meta_keywords_en = $request->meta_keywords_en;
             $category->showHome = $request->showHome;
             $category->status = $request->status;
             $category->save();
@@ -100,16 +115,29 @@ class CategoryController extends Controller
         }
 
         $validator = Validator::make($request->all(),[
-            'name'  => 'required',
+            'name_fr'  => 'required',
+            'name_en'  => 'required',
             'slug'  => 'required|unique:categories,slug,'.$category->id.',id'
         ]);
 
         if ($validator->passes()) {
             # code...
-            $category->name     = $request->name;
-            $category->slug     = $request->slug;
+            $category->name_fr = $request->name_fr;
+            $category->name_en = $request->name_en;
+            $category->slug = $request->slug;
+            $category->description_fr = $request->description_fr;
+            $category->description_en = $request->description_en;
+            $category->logo = $request->logo;
+            $category->icon = $request->icon;
+            $category->banner = $request->banner;
+            $category->meta_title_fr = $request->meta_title_fr;
+            $category->meta_title_en = $request->meta_title_en;
+            $category->meta_description_fr = $request->meta_description_fr;
+            $category->meta_description_en = $request->meta_description_en;
+            $category->meta_keywords_fr = $request->meta_keywords_fr;
+            $category->meta_keywords_en = $request->meta_keywords_en;
             $category->showHome = $request->showHome;
-            $category->status   = $request->status;
+            $category->status = $request->status;
             $category->save();
 
             // Sauvegardez une image
@@ -147,16 +175,17 @@ class CategoryController extends Controller
 
         $category = Category::find($categoryId);
         if (empty($category)) {
-            # code...
             Session()->flash('error','Catégorie introuvable');
             return response()->json([
-                'status'    => true,
+                'status'    => false,
                 'message'   => 'Catégorie introuvable'
             ]);
         }
 
-        File::delete(public_path().'/uploads/categories/thump/'.$category->id);
-        File::delete(public_path().'/uploads/categories/'.$category->id);
+        if (!empty($category->image)) {
+            File::delete(public_path('uploads/categories/thump/'.$category->image));
+            File::delete(public_path('uploads/categories/'.$category->image));
+        }
 
         $category->delete();
 
