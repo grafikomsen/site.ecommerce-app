@@ -6,20 +6,20 @@
 
         <ul class="mt-6 space-y-1">
             <li class="space-y-2">
-                <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-sm">
-                    Dashboard
+                <a href="" class="block px-4 py-2 text-sm font-bold text-gray-700 bg-gray-100 rounded-sm">
+                    TABLEAU DE BORD
                 </a>
-                <a href="{{ route('admin.categorie') }}" class="block px-4 py-2 text-sm font-medium text-gray-700 bg-white rounded-sm hover:bg-gray-100 hover:text-gray-700">
-                    Categories
+                <a href="" class="block px-4 py-2 text-sm font-bold text-gray-700 bg-white rounded-sm hover:bg-gray-100 hover:text-gray-700">
+                    CATÉGORIES
                 </a>
-                <a href="{{ route('admin.subCategorie') }}" class="block px-4 py-2 text-sm font-medium text-gray-700 bg-white rounded-sm hover:bg-gray-100 hover:text-gray-700">
-                    Sub Categories
+                <a href="" class="block px-4 py-2 text-sm font-bold text-gray-700 bg-white rounded-sm hover:bg-gray-100 hover:text-gray-700">
+                    SOUS CATÉGORIES
                 </a>
-                <a href="{{ route('admin.brand') }}" class="block px-4 py-2 text-sm font-medium text-gray-700 bg-white rounded-sm hover:bg-gray-100 hover:text-gray-700">
-                    Brand
+                <a href="" class="block px-4 py-2 text-sm font-bold text-gray-700 bg-white rounded-sm hover:bg-gray-100 hover:text-gray-700">
+                    MARQUES
                 </a>
-                <a href="{{ route('admin.product') }}" class="block px-4 py-2 text-sm font-medium text-gray-700 bg-white rounded-sm hover:bg-gray-100 hover:text-gray-700">
-                    Product
+                <a href="" class="block px-4 py-2 text-sm font-bold text-gray-700 bg-white rounded-sm hover:bg-gray-100 hover:text-gray-700">
+                    PRODUITS
                 </a>
             </li>
         </ul>

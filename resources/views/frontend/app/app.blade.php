@@ -78,6 +78,9 @@
                                             @elseif (Auth::user()->role === 'vendor')
                                                 <hr class="my-1">
                                                 <span class="block px-4 py-1 text-xs text-gray-400 uppercase tracking-wide">Vendeur</span>
+                                                <a href="{{ url('/vendor/dashboard') }}" class="block px-4 py-2 text-sm hover:bg-gray-100">
+                                                    Tableau de bord
+                                                </a>
                                                 <a href="{{ url('/vendor/products') }}" class="block px-4 py-2 text-sm hover:bg-gray-100">
                                                     Mes produits
                                                 </a>

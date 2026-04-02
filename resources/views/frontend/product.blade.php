@@ -15,9 +15,8 @@
             <div class="lg:col-span-2">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div class="md:col-span-2">
-                        <h2 class="text-2xl font-semibold">{{ $product->title }}</h2>
-                        <p>{{ $product->short_description }}</p>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, labore! Labore, recusandae sequi! Laudantium laborum eos ut fugiat error ab cum similique culpa dolores accusantium, eum quasi omnis quas nobis!</p>
+                        <h2 class="text-2xl font-semibold">{{ $product->title_fr }}</h2>
+                        <p>{{ $product->short_description_fr }}</p>
                     </div>
                     <div class="flex flex-col border p-4 rounded space-y-3">
                         <h2 class="text-2xl font-bold">{{ number_format($product->price, 0, '.', ' ') }} CFA</h2>

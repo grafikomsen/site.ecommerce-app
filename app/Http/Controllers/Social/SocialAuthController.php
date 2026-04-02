@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 
 class SocialAuthController extends Controller
@@ -31,7 +32,7 @@ class SocialAuthController extends Controller
     /**
      * Callback du provider
      */
-    public function handleProviderCallback($provider)
+    public function handleProviderCallback(Request $request, $provider)
     {
         $this->validateProvider($provider);
 
@@ -68,8 +69,9 @@ class SocialAuthController extends Controller
                     ->with('error', 'Votre compte a été désactivé. Veuillez contacter l\'administrateur.');
             }
 
-            // Connecter l'utilisateur
+            // Connecter l'utilisateur et régénérer la session pour sécuriser l'authentification
             Auth::login($user, true);
+            $request->session()->regenerate();
 
             // Rediriger selon le rôle
             $intendedUrl = session('url.intended', route('dashboard'));

@@ -74,7 +74,7 @@ class ProductImageController extends Controller
             'imageMedium' => asset('uploads/product/medium/'.$productImage->image_path),
             'imageSmall'  => asset('uploads/product/small/'.$productImage->image_path),
             'imageThumb'  => asset('uploads/product/thumb/'.$productImage->image_path),
-            'message'     => 'Image saved successfully',
+            'message'     => 'Image enregistrée avec succès',
         ]);
     }
 

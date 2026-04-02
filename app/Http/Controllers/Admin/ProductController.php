@@ -50,7 +50,8 @@ class ProductController extends Controller
         }
 
         $rules = [
-            'title'         => 'required',
+            'title_fr'      => 'required',
+            'title_en'      => 'required',
             'slug'          => 'required|unique:products',
             'price'         => 'required|numeric',
             'sku'           => 'required',
@@ -60,7 +61,8 @@ class ProductController extends Controller
         ];
 
         $messages = [
-            'title'         => 'Veuillez entrer le titre',
+            'title_fr'      => 'Veuillez entrer le titre (en français)',
+            'title_en'      => 'Veuillez entrer le titre (en anglais)',
             'slug'          => 'Veuillez entrer le slug',
             'price'         => 'Veuillez entrer le prix',
             'sku'           => 'Veuillez entrer le sku',
@@ -78,15 +80,15 @@ class ProductController extends Controller
 
         if ($Validator->passes()) {
             $product = new Product();
-            $product->title_fr             = $request->title;
-            $product->title_en             = $request->title;
+            $product->title_fr             = $request->title_fr;
+            $product->title_en             = $request->title_en;
             $product->slug                 = $request->slug;
-            $product->description_fr       = $request->description;
-            $product->description_en       = $request->description;
-            $product->short_description_fr = $request->short_description;
-            $product->short_description_en = $request->short_description;
-            $product->shipping_returns_fr  = $request->shipping_returns;
-            $product->shipping_returns_en  = $request->shipping_returns;
+            $product->description_fr       = $request->description_fr;
+            $product->description_en       = $request->description_en;
+            $product->short_description_fr = $request->short_description_fr;
+            $product->short_description_en = $request->short_description_en;
+            $product->shipping_returns_fr  = $request->shipping_returns_fr;
+            $product->shipping_returns_en  = $request->shipping_returns_en;
             $product->price                = $request->price;
             $product->compare_price        = $request->compare_price;
             $product->cost_price           = $request->cost_price;
@@ -105,12 +107,12 @@ class ProductController extends Controller
             $product->is_new               = ($request->is_new == 'Yes');
             $product->track_qty            = $request->track_qty;
             $product->qty                  = $request->qty;
-            $product->meta_title_fr        = $request->meta_title;
-            $product->meta_title_en        = $request->meta_title;
-            $product->meta_description_fr  = $request->meta_description;
-            $product->meta_description_en  = $request->meta_description;
-            $product->meta_keywords_fr     = $request->meta_keywords;
-            $product->meta_keywords_en     = $request->meta_keywords;
+            $product->meta_title_fr        = $request->meta_title_fr;
+            $product->meta_title_en        = $request->meta_title_en;
+            $product->meta_description_fr  = $request->meta_description_fr;
+            $product->meta_description_en  = $request->meta_description_en;
+            $product->meta_keywords_fr     = $request->meta_keywords_fr;
+            $product->meta_keywords_en     = $request->meta_keywords_en;
             $product->vendor_id            = Auth::id();
             $product->category_id          = $request->category;
             $product->sub_category_id      = $request->sub_category;
@@ -139,11 +141,11 @@ class ProductController extends Controller
 
                     $sourcePath = public_path('/temp/'.$tempImageInfo->name);
                     $sizes = config('image.product_sizes');
-                    $basePath = public_path('uploads/product');
+                    $basePath = public_path('uploads/product/medium/');
 
                     File::ensureDirectoryExists($basePath);
                     foreach ($sizes as $folder => $settings) {
-                        $path = $folder ? public_path('uploads/product/'.$folder) : $basePath;
+                        $path = $folder ? public_path('uploads/product/medium/'.$folder) : $basePath;
                         File::ensureDirectoryExists($path);
 
                         $image = Image::make($sourcePath);
@@ -209,7 +211,8 @@ class ProductController extends Controller
         }
 
         $rules = [
-            'title'         => 'required',
+            'title_fr'      => 'required',
+            'title_en'      => 'required',
             'slug'          => 'required|unique:products,slug,'.$product->id.',id',
             'price'         => 'required|numeric',
             'sku'           => 'required|unique:products,sku,'.$product->id.',id',
@@ -226,15 +229,15 @@ class ProductController extends Controller
         $Validator = Validator::make($request->all(), $rules);
 
         if ($Validator->passes()) {
-            $product->title_fr             = $request->title;
-            $product->title_en             = $request->title;
+            $product->title_fr             = $request->title_fr;
+            $product->title_en             = $request->title_en;
             $product->slug                 = $request->slug;
-            $product->description_fr       = $request->description;
-            $product->description_en       = $request->description;
-            $product->short_description_fr = $request->short_description;
-            $product->short_description_en = $request->short_description;
-            $product->shipping_returns_fr  = $request->shipping_returns;
-            $product->shipping_returns_en  = $request->shipping_returns;
+            $product->description_fr       = $request->description_fr;
+            $product->description_en       = $request->description_en;
+            $product->short_description_fr = $request->short_description_fr;
+            $product->short_description_en = $request->short_description_en;
+            $product->shipping_returns_fr  = $request->shipping_returns_fr;
+            $product->shipping_returns_en  = $request->shipping_returns_en;
             $product->price                = $request->price;
             $product->compare_price        = $request->compare_price;
             $product->cost_price           = $request->cost_price;
@@ -253,12 +256,12 @@ class ProductController extends Controller
             $product->is_new               = ($request->is_new == 'Yes');
             $product->track_qty            = $request->track_qty;
             $product->qty                  = $request->qty;
-            $product->meta_title_fr        = $request->meta_title;
-            $product->meta_title_en        = $request->meta_title;
-            $product->meta_description_fr  = $request->meta_description;
-            $product->meta_description_en  = $request->meta_description;
-            $product->meta_keywords_fr     = $request->meta_keywords;
-            $product->meta_keywords_en     = $request->meta_keywords;
+            $product->meta_title_fr        = $request->meta_title_fr;
+            $product->meta_title_en        = $request->meta_title_en;
+            $product->meta_description_fr  = $request->meta_description_fr;
+            $product->meta_description_en  = $request->meta_description_en;
+            $product->meta_keywords_fr     = $request->meta_keywords_fr;
+            $product->meta_keywords_en     = $request->meta_keywords_en;
             $product->category_id          = $request->category;
             $product->sub_category_id      = $request->sub_category;
             $product->brand_id             = $request->brand;
@@ -297,10 +300,10 @@ class ProductController extends Controller
         if ($productImages->isNotEmpty()) {
             $sizes = array_keys(config('image.product_sizes'));
             foreach($productImages as $productImage){
-                $deletePaths = [public_path('uploads/product/'.$productImage->image)];
+                $deletePaths = [public_path('uploads/product/medium/'.$productImage->image)];
                 foreach ($sizes as $folder) {
                     if ($folder) {
-                        $deletePaths[] = public_path('uploads/product/'.$folder.'/'.$productImage->image);
+                        $deletePaths[] = public_path('uploads/product/medium/'.$folder.'/'.$productImage->image);
                     }
                 }
                 File::delete($deletePaths);

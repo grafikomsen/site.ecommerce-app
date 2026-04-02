@@ -39,9 +39,9 @@ class BrandController extends Controller
         if ($validator->passes()) {
             # code...
             $brand = new Brand();
-            $brand->name = $request->name;
-            $brand->slug = $request->slug;
-            $brand->status = $request->status;
+            $brand->name_fr = $request->name;
+            $brand->slug    = $request->slug;
+            $brand->status  = $request->status;
             $brand->save();
 
             // Sauvegardez une image
@@ -105,7 +105,7 @@ class BrandController extends Controller
 
         if ($validator->passes()) {
             # code...
-            $brand->name     = $request->name;
+            $brand->name_fr  = $request->name;
             $brand->slug     = $request->slug;
             $brand->status   = $request->status;
             $brand->save();

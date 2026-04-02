@@ -14,10 +14,10 @@
     <body class="font-poppins">
         <div class="grid grid-cols-1 gap-4 lg:grid-cols-[230px_1fr]">
             <div class="">
-                @include('admin.app.sideBar')
+                @include('vendor.app.sideBar')
             </div>
             <div class="">
-                @include('admin.app.topBar')
+                @include('vendor.app.topBar')
                 @yield('content')
             </div>
         </div>

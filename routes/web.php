@@ -54,6 +54,12 @@ Route::prefix('auth')->name('social.')->group(function () {
 Route::prefix('vendor')->middleware(['auth', IsVendor::class])->group(function () {
     Route::get('/dashboard', [VendorController::class, 'dashboard'])->name('vendor.dashboard');
     Route::get('/logout', [VendorController::class, 'destroy'])->name('vendor.logout');
+
+    // Catégories
+    // Sous catégories
+    // Marques
+    // Products
+    // IMAGES
 });
 
 // ADMIN ROUTES
@@ -69,7 +75,7 @@ Route::prefix('admin')->middleware(['auth', IsAdmin::class])->group(function () 
     Route::put('/categorie/{category}', [CategoryController::class, 'updated'])->name('admin.categorie.updated');
     Route::delete('/categorie/{category}', [CategoryController::class, 'destroy'])->name('admin.categorie.destroy');
 
-    // Catégories
+    // Sous catégories
     Route::get('/sous-categories', [SubCategoryController::class, 'subCategorie'])->name('admin.subCategorie');
     Route::get('/sous-categories/create', [SubCategoryController::class, 'create'])->name('admin.subCategorie.create');
     Route::post('/sous-categories/store', [SubCategoryController::class, 'store'])->name('admin.subCategorie.store');
