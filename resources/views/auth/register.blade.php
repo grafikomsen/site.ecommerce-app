@@ -10,7 +10,7 @@
     <body class="bg-gray-300">
         <div  class="mx-auto my-8 max-w-sm sm:my-20 border-2 p-8 rounded-md shadow-md bg-[#222F3D]">
             <a href="{{ route('home') }}" class=" flex justify-center">
-                <img class="w-[150px]" src="{{ asset('frontend-assets/images/amazon_logo.png') }}" alt="Logo">
+                <img class="w-[150px]" src="{{ asset('frontend/assets/images/amazon_logo.png') }}" alt="Logo">
             </a>
             <h3 class="text-white text-lg py-2">Créer un compte</h3>
             <form action="{{ route('register') }}" method="POST">
